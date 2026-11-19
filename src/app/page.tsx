@@ -10,7 +10,6 @@ import Questions from "@/components/home/Questions";
 import Journey from "@/components/home/Journey";
 import Report from "@/components/home/Report";
 import Faq from "@/components/home/Faq";
-import Contact from "@/components/home/Contact";
 import Closing from "@/components/home/Closing";
 
 export default function HomePage() {
@@ -29,7 +28,6 @@ export default function HomePage() {
         <Journey />
         <Report />
         <Faq />
-        <Contact />
         <Closing />
       </main>
     </BookingProvider>

@@ -40,7 +40,7 @@ export default function Faq() {
           </h2>
           <p className="mt-5 max-w-sm leading-relaxed text-ink-2">
             Everything you might want to know before beginning. Can&apos;t find your answer?{" "}
-            <a href="#contact" className="font-semibold text-ink underline decoration-gold underline-offset-4">
+            <a href="/contact" className="font-semibold text-ink underline decoration-gold underline-offset-4">
               Write to us
             </a>
             .

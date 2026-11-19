@@ -10,12 +10,12 @@ const FOOTER = [
   {
     title: "Explore",
     links: [
-      { label: "About PRERNA", href: "#about" },
-      { label: "Three paths", href: "#paths" },
-      { label: "Consultations & services", href: "#services" },
-      { label: "Self-discovery journey", href: "#journey" },
-      { label: "Personalised report", href: "#report" },
-      { label: "Free insight", href: "#free-insight" },
+      { label: "About PRERNA", href: "/#about" },
+      { label: "Three paths", href: "/#paths" },
+      { label: "Consultations & services", href: "/#services" },
+      { label: "Self-discovery journey", href: "/#journey" },
+      { label: "Personalised report", href: "/#report" },
+      { label: "Free insight", href: "/#free-insight" },
     ],
   },
   {
@@ -23,8 +23,8 @@ const FOOTER = [
     links: [
       { label: "About us", href: "/about" },
       { label: "Blog & articles", href: "/blog" },
-      { label: "FAQ", href: "#faq" },
-      { label: "Contact", href: "#contact" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
@@ -37,12 +37,13 @@ const FOOTER = [
   },
 ];
 
-export default function Closing() {
+export default function Closing({ showCta = true }: { showCta?: boolean }) {
   const { openBooking } = useBooking();
 
   return (
     <>
       {/* Meaning + final CTA */}
+      {showCta && (
       <section className="relative overflow-hidden py-28 lg:py-36">
         <span
           aria-hidden
@@ -70,7 +71,7 @@ export default function Closing() {
               Book a 1-1 session
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </button>
-            <a href="#free-insight" className="w-full rounded-full border border-ink/25 bg-paper/60 px-7 py-4 font-semibold backdrop-blur transition hover:border-ink hover:bg-card sm:w-auto">
+            <a href="/#free-insight" className="w-full rounded-full border border-ink/25 bg-paper/60 px-7 py-4 font-semibold backdrop-blur transition hover:border-ink hover:bg-card sm:w-auto">
               Try the free insight
             </a>
           </div>
@@ -84,11 +85,12 @@ export default function Closing() {
           </ul>
         </Reveal>
       </section>
+      )}
 
       <footer className="border-t-2 border-gold/60 bg-ink text-paper">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <a href="#top" className="flex items-center gap-2.5 text-gold-soft">
+            <a href="/" className="flex items-center gap-2.5 text-gold-soft">
               <LogoMark className="h-9 w-9" />
               <span className="font-display text-2xl font-semibold tracking-[0.18em] text-paper">PRERNA</span>
             </a>
