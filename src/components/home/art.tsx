@@ -90,7 +90,7 @@ export function CelestialScene({ className = "" }: { className?: string }) {
       </g>
       <g className="spin-rev" style={{ transformOrigin: "200px 318px" }}>
         <circle cx="200" cy="318" r="156" fill="none" stroke="#fff3da" strokeOpacity=".28" />
-        <circle cx="90" cy="208" r="4" fill="#ead6a8" />
+        <circle cx="90" cy="208" r="4" fill="#e8d3a2" />
         <circle cx="356" cy="318" r="2.5" fill="#fff3da" />
       </g>
       <g className="spin-mid" style={{ transformOrigin: "200px 318px" }}>
@@ -216,33 +216,103 @@ export function Lotus({ className = "" }: { className?: string }) {
   );
 }
 
-/* Numerology: ring of 1–9 with the active number lit */
+/* Numerology: celestial dial — tick ring, nine-point star, glowing orb, numbers 1–9 */
 export function NumberRing({ active, className = "" }: { active?: number; className?: string }) {
-  const c = 160;
+  const uid = useId().replace(/:/g, "");
+  const c = 180;
+  const R = 128; // number ring radius
   const reduced = active && active > 9 ? ((active - 1) % 9) + 1 : active;
+  const pt = (i: number, r: number) => {
+    const a = (i / 9) * Math.PI * 2 - Math.PI / 2;
+    return [c + Math.cos(a) * r, c + Math.sin(a) * r] as const;
+  };
+  const star = Array.from({ length: 9 }, (_, k) => pt((k * 4) % 9, 100))
+    .map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`)
+    .join(" ");
+  const activePt = reduced ? pt(reduced - 1, R) : null;
+
   return (
-    <svg viewBox="0 0 320 320" className={className} aria-hidden="true" fill="none">
-      <g className="spin-slow" style={{ transformOrigin: "160px 160px" }} stroke="#ead6a8">
-        <circle cx={c} cy={c} r="150" strokeOpacity=".2" strokeDasharray="2 8" />
-        <circle cx={c} cy={c} r="96" strokeOpacity=".25" />
+    <svg viewBox="0 0 360 360" className={className} aria-hidden="true" fill="none">
+      <defs>
+        <radialGradient id={`orb-${uid}`} cx=".5" cy=".5" r=".5">
+          <stop offset="0" stopColor="#e8d3a2" stopOpacity=".38" />
+          <stop offset=".55" stopColor="#b8892f" stopOpacity=".12" />
+          <stop offset="1" stopColor="#b8892f" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* outer tick dial */}
+      <g className="spin-slow" style={{ transformOrigin: `${c}px ${c}px` }}>
+        <circle cx={c} cy={c} r="168" stroke="#e8d3a2" strokeOpacity=".18" />
+        {Array.from({ length: 72 }, (_, i) => {
+          const a = (i / 72) * Math.PI * 2;
+          const long = i % 8 === 0;
+          const r1 = 168;
+          const r2 = long ? 156 : 162;
+          return (
+            <line
+              key={i}
+              x1={(c + Math.cos(a) * r1).toFixed(2)}
+              y1={(c + Math.sin(a) * r1).toFixed(2)}
+              x2={(c + Math.cos(a) * r2).toFixed(2)}
+              y2={(c + Math.sin(a) * r2).toFixed(2)}
+              stroke="#e8d3a2"
+              strokeOpacity={long ? 0.55 : 0.22}
+            />
+          );
+        })}
       </g>
-      <circle cx={c} cy={c} r="124" stroke="#ead6a8" strokeOpacity=".4" />
+
+      {/* number ring */}
+      <circle cx={c} cy={c} r={R} stroke="#e8d3a2" strokeOpacity=".28" />
+
+      {/* nine-point star */}
+      <g className="spin-rev" style={{ transformOrigin: `${c}px ${c}px` }}>
+        <polygon points={star} stroke="#e8d3a2" strokeOpacity=".16" strokeLinejoin="round" />
+        <circle cx={c} cy={c} r="100" stroke="#e8d3a2" strokeOpacity=".1" strokeDasharray="2 5" />
+      </g>
+
+      {/* glowing orb */}
+      <circle cx={c} cy={c} r="96" fill={`url(#orb-${uid})`} className="orb-pulse" style={{ transformOrigin: `${c}px ${c}px` }} />
+      <circle cx={c} cy={c} r="62" stroke="#e8d3a2" strokeOpacity=".35" />
+      <circle cx={c} cy={c} r="56" fill="#1c1844" fillOpacity=".55" />
+
+      {/* line to the active number */}
+      {activePt && (
+        <line
+          x1={c}
+          y1={c}
+          x2={activePt[0].toFixed(2)}
+          y2={activePt[1].toFixed(2)}
+          stroke="#e8d3a2"
+          strokeOpacity=".5"
+          strokeDasharray="3 4"
+        />
+      )}
+
+      {/* numbers */}
       {Array.from({ length: 9 }, (_, i) => {
         const n = i + 1;
-        const a = (i / 9) * Math.PI * 2 - Math.PI / 2;
-        const x = c + Math.cos(a) * 124;
-        const y = c + Math.sin(a) * 124;
+        const [x, y] = pt(i, R);
         const on = reduced === n;
         return (
-          <g key={n}>
-            <circle cx={x.toFixed(2)} cy={y.toFixed(2)} r={on ? 20 : 15} fill={on ? "#ead6a8" : "#1d1a38"} stroke="#ead6a8" strokeOpacity={on ? 1 : 0.5} style={{ transition: "all .5s" }} />
+          <g key={n} style={{ transition: "opacity .5s" }} opacity={reduced && !on ? 0.55 : 1}>
+            {on && <circle cx={x.toFixed(2)} cy={y.toFixed(2)} r="24" stroke="#e8d3a2" strokeOpacity=".45" className="orb-pulse" style={{ transformOrigin: `${x.toFixed(2)}px ${y.toFixed(2)}px` }} />}
+            <circle
+              cx={x.toFixed(2)}
+              cy={y.toFixed(2)}
+              r={on ? 17 : 14}
+              fill={on ? "#e8d3a2" : "#1c1844"}
+              stroke="#e8d3a2"
+              strokeOpacity={on ? 1 : 0.45}
+            />
             <text
               x={x.toFixed(2)}
-              y={(y + 5).toFixed(2)}
+              y={(y + 4.5).toFixed(2)}
               textAnchor="middle"
-              fontSize={on ? 16 : 13}
-              fill={on ? "#1d1a38" : "#ead6a8"}
-              style={{ fontFamily: "var(--font-display)", fontWeight: 600 }}
+              fontSize={on ? 14 : 12}
+              fill={on ? "#1c1844" : "#e8d3a2"}
+              style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontVariantNumeric: "lining-nums tabular-nums" }}
             >
               {n}
             </text>

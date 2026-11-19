@@ -6,7 +6,17 @@ import { ZodiacWheel } from "./art";
 import Reveal from "./Reveal";
 import { useBooking } from "./BookingProvider";
 
-const INCLUDES = ["Birth chart & planetary insights", "Relationships, career & money", "Healing & balancing practices", "Weekly horoscope"];
+const INCLUDES = [
+  "Personal birth & astrological data",
+  "Planetary & zodiac insights",
+  "Relationship analysis",
+  "Major life areas",
+  "Career & growth",
+  "Money, family & education",
+  "Personalised recommendations",
+  "Balancing & healing techniques",
+  "Weekly horoscope & ongoing insights",
+];
 
 const BARS = [
   { k: "Career", v: 82, c: "bg-astro" },
@@ -63,20 +73,24 @@ export default function Report() {
           <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
             Your life, <em className="text-astro">mapped.</em>
           </h2>
-          <ul className="mt-9 space-y-4">
+          <p className="mt-6 text-lg leading-relaxed text-ink-2">
+            A detailed, personalised analysis of your life — built from precise astrological calculations and
+            interpreted by the PRERNA team, then explained to you on a private 1-1 consultation call.
+          </p>
+          <p className="mt-9 text-sm font-semibold">Your report can cover</p>
+          <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2">
             {INCLUDES.map((t) => (
-              <li key={t} className="flex items-center gap-3 text-lg">
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-spirit-soft text-spirit">
+              <li key={t} className="flex items-start gap-3">
+                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-spirit-soft text-spirit">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {t}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-ink-2">Explained with you on a 1-1 call.</p>
           <button
             onClick={() => openBooking()}
-            className="group mt-9 flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition hover:bg-astro"
+            className="group mt-9 flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro"
           >
             Get my report
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />

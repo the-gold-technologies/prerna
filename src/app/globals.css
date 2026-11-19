@@ -2,36 +2,37 @@
 
 /* ------------------------------------------------------------------
    PRERNA — light editorial theme
-   Palette taken from the brand proposal: warm paper, deep indigo ink,
-   antique gold, and one accent per system (astrology / psychology /
-   spirituality).
+   Theme: warm ivory + mystic indigo, with golden accents.
+   System accents stay in the same family: indigo (astrology),
+   violet (psychology), antique gold (spirituality).
 ------------------------------------------------------------------- */
 
 @theme inline {
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
-  --color-paper: #f7f2e9;
-  --color-sand: #efe6d6;
-  --color-card: #fffcf6;
-  --color-line: #e3d8c4;
+  --color-paper: #faf6ee;
+  --color-sand: #f3ebdc;
+  --color-card: #fffdf8;
+  --color-line: #e9dcc3;
 
-  --color-ink: #1d1a38;
-  --color-ink-2: #4a4763;
-  --color-ink-3: #77738c;
+  --color-ink: #1c1844;
+  --color-ink-2: #4a4670;
+  --color-ink-3: #7b7896;
 
-  --color-gold: #b8862f;
-  --color-gold-deep: #8a621c;
-  --color-gold-soft: #ead6a8;
+  --color-gold: #b8892f;
+  --color-gold-bright: #d6ac52;
+  --color-gold-deep: #8c6418;
+  --color-gold-soft: #e8d3a2;
 
-  --color-astro: #3a3a8c;
-  --color-astro-soft: #e7e5f4;
-  --color-psych: #a24e33;
-  --color-psych-soft: #f6e4db;
-  --color-spirit: #44705a;
-  --color-spirit-soft: #e2ece4;
+  --color-astro: #3b3488;
+  --color-astro-soft: #ebe8f7;
+  --color-psych: #64458f;
+  --color-psych-soft: #f0eaf6;
+  --color-spirit: #94702a;
+  --color-spirit-soft: #f6eedb;
 
-  --color-dawn: #f3cda6;
+  --color-dawn: #f1dcb2;
 }
 
 html {
@@ -44,9 +45,37 @@ body {
   color: var(--color-ink);
 }
 
+/* Cormorant defaults to old-style numerals ("1" looks like "I"); use lining figures */
+.font-display {
+  font-variant-numeric: lining-nums;
+}
+
 ::selection {
   background: var(--color-gold-soft);
   color: var(--color-ink);
+}
+
+/* ---------- Golden touches ---------- */
+
+/* Emphasised words in headings get a gilded gradient */
+h1 em,
+h2 em {
+  background: linear-gradient(100deg, #8c6418 0%, #c49a3e 45%, #d6ac52 60%, #9a6f1e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em; /* keep italic overhang from clipping */
+}
+/* On dark panels, use a lighter gold */
+.bg-ink h2 em,
+.on-dark h2 em {
+  background-image: linear-gradient(100deg, #e8d3a2 0%, #f4e2b8 40%, #d6ac52 100%);
+}
+
+/* Gold hairline divider */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 137, 47, 0.55), transparent);
 }
 
 /* Arch frame — the recurring visual motif */
@@ -81,6 +110,10 @@ body {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+@keyframes orb-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
@@ -98,6 +131,7 @@ body {
 .twinkle { animation: twinkle 4s ease-in-out infinite; }
 .float { animation: float 7s ease-in-out infinite; }
 .marquee { animation: marquee 40s linear infinite; }
+.orb-pulse { animation: orb-pulse 5s ease-in-out infinite; }
 .rise { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* Scroll reveal (toggled by <Reveal>) */
@@ -118,16 +152,51 @@ body {
   animation: draw 2.4s cubic-bezier(0.6, 0, 0.3, 1) 0.2s forwards;
 }
 
+/* Journey: stage nodes pop in along the path, text fades after */
+@keyframes stage-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes stage-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.stage-pop,
+.stage-fade {
+  opacity: 0;
+}
+@keyframes stage-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.stage-progress {
+  animation: stage-progress linear forwards;
+}
+.stage-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.in .stage-pop {
+  animation: stage-pop 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+}
+.in .stage-fade {
+  animation: stage-fade 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 @media (scripting: none) {
+  .stage-pop, .stage-fade { opacity: 1; }
   .reveal { opacity: 1; transform: none; }
   .draw-path { stroke-dashoffset: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .spin-slow, .spin-mid, .spin-rev, .twinkle, .float, .marquee, .rise {
+  .spin-slow, .spin-mid, .spin-rev, .twinkle, .float, .marquee, .rise, .orb-pulse {
     animation: none !important;
   }
   .reveal { transition: opacity 0.4s linear; transform: none; }
   .draw-path { stroke-dashoffset: 0; animation: none !important; }
+  .stage-pop, .stage-fade { opacity: 1; animation: none !important; }
+  .stage-progress { animation: none; width: 100%; }
+  .travel-dot { display: none; }
 }

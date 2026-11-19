@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Moon, MessageCircleHeart, ShieldCheck } from "lucide-react";
 import { CelestialScene } from "./art";
 import { useBooking } from "./BookingProvider";
 
@@ -30,10 +30,12 @@ export default function Hero() {
             Find your <em className="font-normal text-psych">peace.</em>
           </h1>
           <p
-            className="rise mx-auto mt-7 max-w-md text-lg leading-relaxed text-ink-2 lg:mx-0"
+            className="rise mx-auto mt-7 max-w-lg text-lg leading-relaxed text-ink-2 lg:mx-0"
             style={{ animationDelay: "160ms" }}
           >
-            Personal guidance for purpose, peace and inner inspiration.
+            PRERNA brings together Vedic astrology, psychology and spirituality to help you understand who you
+            are, why you feel the way you do, and where your life is heading — with free tools to begin and
+            expert 1-1 guidance when you&apos;re ready to go deeper.
           </p>
           <div
             className="rise mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start"
@@ -41,7 +43,7 @@ export default function Hero() {
           >
             <a
               href="#free-insight"
-              className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition hover:bg-astro sm:w-auto"
+              className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro sm:w-auto"
             >
               Get your free insight
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -53,6 +55,24 @@ export default function Hero() {
               Book a 1-1 session
             </button>
           </div>
+          <ul
+            className="rise mt-10 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-line pt-6 text-sm text-ink-2 lg:justify-start"
+            style={{ animationDelay: "320ms" }}
+          >
+            {[
+              [Moon, "Vedic astrology"],
+              [MessageCircleHeart, "Professional counselling"],
+              [ShieldCheck, "Private & confidential"],
+            ].map(([Icon, label]) => {
+              const I = Icon as typeof Moon;
+              return (
+                <li key={label as string} className="flex items-center gap-2">
+                  <I className="h-4 w-4 text-gold-deep" strokeWidth={1.8} />
+                  {label as string}
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         {/* Visual */}
@@ -79,7 +99,7 @@ export default function Hero() {
       </div>
 
       {/* theme marquee */}
-      <div className="relative border-y border-line/80 bg-card/50 py-5" aria-label="What PRERNA helps you understand">
+      <div className="relative border-y border-gold/30 bg-card/50 py-5" aria-label="What PRERNA helps you understand">
         <div className="flex overflow-hidden">
           <div className="marquee flex shrink-0 items-center gap-10 pr-10">
             {[...THEMES, ...THEMES, ...THEMES, ...THEMES].map((t, i) => (

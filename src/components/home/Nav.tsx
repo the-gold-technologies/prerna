@@ -11,6 +11,7 @@ const LINKS = [
   { label: "Journey", href: "#journey" },
   { label: "Reports", href: "#report" },
   { label: "Free insight", href: "#free-insight" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Nav() {
@@ -48,7 +49,7 @@ export default function Nav() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => openBooking()}
-            className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition hover:bg-astro sm:block"
+            className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro sm:block"
           >
             Book a session
           </button>

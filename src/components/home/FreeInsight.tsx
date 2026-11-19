@@ -26,7 +26,7 @@ export default function FreeInsight() {
     // TODO: send details to PRERNA backend for the full chart / email follow-up
     setResult(calculatePythagoreanNumerology(form.name, form.dob));
     try {
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 }, colors: ["#ead6a8", "#b8862f", "#fffcf6"] });
+      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 }, colors: ["#e8d3a2", "#b8892f", "#fffcf6"] });
     } catch {}
   };
 
@@ -38,7 +38,7 @@ export default function FreeInsight() {
           className="pointer-events-none absolute inset-0 opacity-60"
           style={{
             backgroundImage:
-              "radial-gradient(1px 1px at 20% 30%, #fff6e0 50%, transparent 51%), radial-gradient(1px 1px at 70% 15%, #fff6e0 50%, transparent 51%), radial-gradient(1.5px 1.5px at 85% 60%, #ead6a8 50%, transparent 51%), radial-gradient(1px 1px at 40% 80%, #fff6e0 50%, transparent 51%), radial-gradient(1px 1px at 10% 70%, #ead6a8 50%, transparent 51%)",
+              "radial-gradient(1px 1px at 20% 30%, #fff6e0 50%, transparent 51%), radial-gradient(1px 1px at 70% 15%, #fff6e0 50%, transparent 51%), radial-gradient(1.5px 1.5px at 85% 60%, #e8d3a2 50%, transparent 51%), radial-gradient(1px 1px at 40% 80%, #fff6e0 50%, transparent 51%), radial-gradient(1px 1px at 10% 70%, #e8d3a2 50%, transparent 51%)",
             backgroundSize: "340px 340px",
           }}
         />
@@ -51,11 +51,14 @@ export default function FreeInsight() {
             <div className="absolute inset-0 grid place-items-center text-center">
               {result ? (
                 <div key={result.lifePathNumber} className="rise">
-                  <p className="text-[11px] uppercase tracking-[0.25em] text-gold-soft/80">Life path</p>
-                  <p className="font-display text-8xl leading-none text-gold-soft sm:text-9xl">{result.lifePathNumber}</p>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-gold-soft/80">Life path</p>
+                  <p className="font-display text-7xl leading-none text-gold-soft sm:text-8xl">{result.lifePathNumber}</p>
                 </div>
               ) : (
-                <p className="font-display text-7xl italic text-gold-soft/90 sm:text-8xl">?</p>
+                <div>
+                  <p className="font-display text-6xl italic leading-none text-gold-soft/90 sm:text-7xl">?</p>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-gold-soft/60">Your number</p>
+                </div>
               )}
             </div>
           </Reveal>

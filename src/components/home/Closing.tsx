@@ -10,8 +10,9 @@ const FOOTER = [
   {
     title: "Explore",
     links: [
-      { label: "About", href: "#about" },
-      { label: "Services", href: "#services" },
+      { label: "About PRERNA", href: "#about" },
+      { label: "Three paths", href: "#paths" },
+      { label: "Consultations & services", href: "#services" },
       { label: "Self-discovery journey", href: "#journey" },
       { label: "Personalised report", href: "#report" },
       { label: "Free insight", href: "#free-insight" },
@@ -21,8 +22,9 @@ const FOOTER = [
     title: "Company",
     links: [
       { label: "About us", href: "/about" },
-      { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "/contact" },
+      { label: "Blog & articles", href: "/blog" },
+      { label: "FAQ", href: "#faq" },
+      { label: "Contact", href: "#contact" },
     ],
   },
   {
@@ -41,37 +43,49 @@ export default function Closing() {
   return (
     <>
       {/* Meaning + final CTA */}
-      <section className="relative overflow-hidden py-24 lg:py-32">
+      <section className="relative overflow-hidden py-28 lg:py-36">
         <span
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[9rem] font-semibold text-gold/10 sm:text-[16rem]"
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[11rem] font-semibold leading-none text-gold/[0.11] sm:text-[20rem] lg:text-[26rem]"
         >
           प्रेरणा
         </span>
         <Reveal className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
-          <div className="arch mx-auto h-40 w-32 shadow-xl sm:h-48 sm:w-36">
+          <div className="arch mx-auto h-44 w-36 shadow-xl ring-1 ring-gold/40 sm:h-52 sm:w-40">
             <CelestialScene className="h-full w-full" />
           </div>
           <p className="mt-10 text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Prerna · inspiration</p>
           <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-7xl">
             Begin where <em>you are.</em>
           </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
+            Whether you&apos;re facing a big decision or simply want to understand yourself better, your first step
+            can be small. Start with a free insight, or talk to us one-to-one.
+          </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={() => openBooking()}
-              className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition hover:bg-astro sm:w-auto"
+              className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro sm:w-auto"
             >
               Book a 1-1 session
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </button>
-            <a href="#free-insight" className="w-full rounded-full border border-ink/25 px-7 py-4 font-semibold transition hover:border-ink hover:bg-card sm:w-auto">
+            <a href="#free-insight" className="w-full rounded-full border border-ink/25 bg-paper/60 px-7 py-4 font-semibold backdrop-blur transition hover:border-ink hover:bg-card sm:w-auto">
               Try the free insight
             </a>
           </div>
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-2">
+            {["Free to start", "Private & confidential", "Expert 1-1 guidance"].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <span className="text-gold">✦</span>
+                {t}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 
-      <footer className="bg-ink text-paper">
+      <footer className="border-t-2 border-gold/60 bg-ink text-paper">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <a href="#top" className="flex items-center gap-2.5 text-gold-soft">
@@ -79,6 +93,9 @@ export default function Closing() {
               <span className="font-display text-2xl font-semibold tracking-[0.18em] text-paper">PRERNA</span>
             </a>
             <p className="mt-4 max-w-xs font-display text-xl italic text-paper/70">Purpose, Peace & Inner Inspiration.</p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/55">
+              A self-discovery and personal guidance platform uniting Astrology, Psychology and Spirituality.
+            </p>
           </div>
           {FOOTER.map((col) => (
             <div key={col.title}>

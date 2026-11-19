@@ -39,7 +39,7 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
     // TODO: connect to PRERNA backend / booking API
     setStep(3);
     try {
-      confetti({ particleCount: 70, spread: 70, origin: { y: 0.55 }, colors: ["#b8862f", "#ead6a8", "#a24e33", "#44705a"] });
+      confetti({ particleCount: 70, spread: 70, origin: { y: 0.55 }, colors: ["#b8892f", "#e8d3a2", "#3b3488", "#d6ac52"] });
     } catch {}
   };
 
@@ -125,7 +125,7 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
 
             <button
               onClick={() => setStep(2)}
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-4 font-semibold text-paper transition hover:bg-astro"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-4 font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro"
             >
               Continue <ArrowRight className="h-4 w-4" />
             </button>
