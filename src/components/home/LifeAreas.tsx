@@ -35,13 +35,24 @@ const ICONS: Record<string, LucideIcon> = {
 const SERVICES = [
   {
     title: "Vedic Astrology",
-    tags: ["Kundli / Birth chart", "Compatibility", "Life-area analysis", "Personalised guidance"],
+    tags: [
+      "Kundli / Birth chart",
+      "Compatibility",
+      "Life-area analysis",
+      "Personalised guidance",
+    ],
     Art: ZodiacWheel,
     tone: "bg-astro-soft text-astro",
   },
   {
     title: "Counselling & Therapy",
-    tags: ["Child, adolescent & parent", "Emotional wellbeing", "Personality development", "Couples", "Career"],
+    tags: [
+      "Child, adolescent & parent",
+      "Emotional wellbeing",
+      "Personality development",
+      "Couples",
+      "Career",
+    ],
     Art: MindRipples,
     tone: "bg-psych-soft text-psych",
   },
@@ -51,12 +62,17 @@ export default function LifeAreas() {
   const { openBooking } = useBooking();
 
   return (
-    <section id="services" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
+    <section
+      id="services"
+      className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32"
+    >
       <Reveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <h2 className="max-w-xl font-display text-5xl font-light leading-[1.05] sm:text-6xl">
           What&apos;s on your <em className="text-psych">mind?</em>
         </h2>
-        <p className="max-w-xs text-ink-2">Pick an area of life. We&apos;ll match you with the right guide.</p>
+        <p className="max-w-xs text-ink-2">
+          Pick an area of life. We&apos;ll match you with the right guide.
+        </p>
       </Reveal>
 
       <Reveal delay={100}>
@@ -75,7 +91,9 @@ export default function LifeAreas() {
                     </span>
                     <ArrowUpRight className="h-4 w-4 text-ink-3 opacity-0 transition group-hover:opacity-100" />
                   </span>
-                  <span className="font-display text-2xl leading-tight">{a.title}</span>
+                  <span className="font-display text-2xl leading-tight">
+                    {a.title}
+                  </span>
                 </button>
               </li>
             );
@@ -86,13 +104,18 @@ export default function LifeAreas() {
       <div className="mt-8 grid gap-3 md:grid-cols-2">
         {SERVICES.map(({ title, tags, Art, tone }, i) => (
           <Reveal key={title} delay={i * 120}>
-            <div className={`relative flex h-full flex-col items-start gap-5 overflow-hidden rounded-3xl p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8 ${tone}`}>
+            <div
+              className={`relative flex h-full flex-col items-start gap-5 overflow-hidden rounded-3xl p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8 ${tone}`}
+            >
               <Art className="h-28 w-28 shrink-0 sm:h-36 sm:w-36" />
               <div>
                 <h3 className="font-display text-3xl text-ink">{title}</h3>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {tags.map((t) => (
-                    <span key={t} className="rounded-full bg-card/80 px-3 py-1 text-xs text-ink-2">
+                    <span
+                      key={t}
+                      className="rounded-full bg-card/80 px-3 py-1 text-xs text-ink-2"
+                    >
                       {t}
                     </span>
                   ))}

@@ -26,9 +26,12 @@ export default function HowItWorks() {
     <section className="bg-card">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-28">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">How it works</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">
+            How it works
+          </p>
           <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
-            From a question to <em className="text-psych">clarity</em>, in three steps.
+            From a question to <em className="text-psych">clarity</em>, in three
+            steps.
           </h2>
           <div className="relative mt-10 hidden aspect-[16/10] overflow-hidden rounded-[28px] lg:block">
             <Image
@@ -51,8 +54,12 @@ export default function HowItWorks() {
                   </span>
                 </div>
                 <div>
-                  <p className="font-display text-lg text-gold-deep">Step {i + 1}</p>
-                  <h3 className="font-display text-3xl leading-tight">{title}</h3>
+                  <p className="font-display text-lg text-gold-deep">
+                    Step {i + 1}
+                  </p>
+                  <h3 className="font-display text-3xl leading-tight">
+                    {title}
+                  </h3>
                   <p className="mt-2 leading-relaxed text-ink-2">{text}</p>
                 </div>
               </div>

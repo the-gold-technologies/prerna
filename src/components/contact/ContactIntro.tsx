@@ -2,8 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight, CalendarHeart, Sparkles, MessageCircleQuestion, Plus } from "lucide-react";
-import Image from "next/image";
+import {
+  ArrowUpRight,
+  ArrowRight,
+  CalendarHeart,
+  Sparkles,
+  MessageCircleQuestion,
+} from "lucide-react";
 import Reveal from "../home/Reveal";
 import { useBooking } from "../home/BookingProvider";
 import VedicChakra, { SkyDecor } from "../home/VedicChakra";
@@ -33,136 +38,90 @@ export function ContactIntro() {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-[72px]">
-      {/* soft background wash, matching the home hero */}
-      <div className="pointer-events-none absolute -right-40 top-0 h-[560px] w-[560px] rounded-full bg-dawn/40 blur-3xl" />
-      <div className="pointer-events-none absolute -left-40 top-40 h-[420px] w-[420px] rounded-full bg-astro-soft blur-3xl" />
+    <section className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
+      {/* soft background wash, matching the hero palette */}
+      <div className="pointer-events-none absolute -right-32 top-0 h-[560px] w-[560px] rounded-full bg-dawn/40 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-[460px] w-[460px] rounded-full bg-astro-soft/60 blur-3xl" />
 
-      {/* large rotating rashi chakra behind the heading */}
-      <div className="pointer-events-none absolute left-1/2 top-[330px] h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 text-gold-deep opacity-[0.22] sm:h-[960px] sm:w-[960px]">
+      {/* rotating rashi chakra on the right side, matching Saanvi hero composition */}
+      <div className="pointer-events-none absolute z-0 right-[-10%] sm:right-[-2%] lg:right-6 top-16 sm:top-20 lg:top-14 h-[440px] w-[440px] sm:h-[500px] sm:w-[500px] lg:h-[560px] lg:w-[560px] text-gold-deep opacity-75 sm:opacity-85">
+        <div className="orb-pulse absolute inset-[14%] rounded-full bg-[radial-gradient(circle,rgba(232,211,162,0.85),transparent_70%)]" />
         <VedicChakra className="h-full w-full" />
       </div>
+
       <SkyDecor />
 
-      <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-14 sm:px-8 lg:pb-28 lg:pt-20">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <div className="relative mx-auto h-40 w-40 sm:h-44 sm:w-44">
-            <div className="orb-pulse absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(232,211,162,0.85),rgba(232,211,162,0)_70%)]" />
-            <div className="spin-slow absolute -inset-4 rounded-full border border-dashed border-gold/50">
-              <span className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-gold-bright shadow-[0_0_12px_rgba(214,172,82,0.9)]" />
-            </div>
-            <div className="relative h-full w-full rounded-full bg-paper p-1.5 shadow-xl ring-1 ring-gold/50">
-              <div className="relative h-full w-full overflow-hidden rounded-full">
-                <Image
-                  src="/images/sunrise-water.jpg"
-                  alt="A person standing with open arms at sunrise, reflected in still water"
-                  fill
-                  preload
-                  sizes="176px"
-                  className="object-cover object-[55%_center]"
-                />
-              </div>
-            </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+        <Reveal className="max-w-3xl">
+          {/* Eyebrow */}
+          <div className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-deep">
+            Contact
           </div>
-          <p className="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Contact PRERNA</p>
-          <h1 className="mt-5 font-display text-5xl font-light leading-[1.02] sm:text-7xl">
-            Let&apos;s begin a <em>conversation.</em>
+
+          {/* Heading */}
+          <h1 className="mt-4 max-w-4xl font-display text-4xl uppercase leading-[1.08] text-ink sm:text-6xl md:text-[3.75rem] lg:text-[4.25rem]">
+            <span className="block">Let&apos;s begin your</span>
+            <span className="mt-1 block font-display italic font-light normal-case leading-[0.95] text-gold-deep text-[1.15em] sm:text-[1.25em]">
+              journey to clarity.
+            </span>
           </h1>
-          <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-2">
-            A question, help choosing the right guidance, or simply curious about PRERNA — we&apos;re here, and
-            every message is read with care.
+
+          {/* Subtitle */}
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-2">
+            Book a 1-1 consultation, ask a question about your report, or reach
+            out to find the right guidance for your path. We&apos;re here, and
+            every message is answered personally.
           </p>
+
+          {/* CTA button */}
+          <div className="mt-8 flex items-center">
+            <a
+              href="#contact"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro"
+            >
+              Send a message
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </a>
+          </div>
         </Reveal>
 
-        <div className="mx-auto mt-14 grid max-w-5xl gap-4 md:grid-cols-3">
-          {WAYS.map(({ Icon, title, text, action, href }, i) => {
-            const inner = (
-              <>
-                <span className="flex w-full items-start justify-between">
-                  <span className="grid h-12 w-12 place-items-center rounded-full bg-ink text-gold-soft ring-1 ring-inset ring-gold/45">
-                    <Icon className="h-5 w-5" strokeWidth={1.6} />
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-ink-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-deep" />
-                </span>
-                <span className="mt-8 block font-display text-2xl leading-tight">{title}</span>
-                <span className="mt-2 block text-sm leading-relaxed text-ink-2">{text}</span>
-              </>
-            );
-            const cls =
-              "group flex h-full w-full flex-col items-start rounded-3xl border border-line bg-card/90 p-6 text-left backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[0_24px_50px_-30px_rgba(28,24,68,0.45)]";
-            return (
-              <Reveal key={title} delay={i * 110}>
-                {href ? (
-                  <Link href={href} className={cls}>
+        {/* Quick pathways - stats-type strip in center and small */}
+        <Reveal delay={120} className="mx-auto mt-12 max-w-4xl sm:mt-16">
+          <div className="overflow-hidden rounded-2xl border border-line/80 bg-card/90 shadow-[0_20px_50px_-25px_rgba(28,24,68,0.25)] backdrop-blur">
+            <div className="grid grid-cols-1 divide-y divide-line/70 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+              {WAYS.map(({ Icon, title, text, action, href }) => {
+                const inner = (
+                  <>
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-gold-soft ring-1 ring-inset ring-gold/45 transition duration-300 group-hover:scale-105">
+                      <Icon className="h-4 w-4" strokeWidth={1.8} />
+                    </span>
+                    <span className="mt-3 flex items-center justify-center gap-1 font-display text-lg font-medium text-ink transition group-hover:text-gold-deep sm:text-xl">
+                      <span>{title}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 text-ink-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-deep" />
+                    </span>
+                    <span className="mt-1 block max-w-[240px] text-xs leading-relaxed text-ink-3">
+                      {text}
+                    </span>
+                  </>
+                );
+                const cls =
+                  "group flex w-full flex-col items-center justify-center p-5 text-center transition duration-300 hover:bg-sand/40 sm:p-6";
+                return href ? (
+                  <Link key={title} href={href} className={cls}>
                     {inner}
                   </Link>
                 ) : (
-                  <button type="button" onClick={action} className={cls}>
+                  <button
+                    key={title}
+                    type="button"
+                    onClick={action}
+                    className={cls}
+                  >
                     {inner}
                   </button>
-                )}
-              </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const QUICK = [
-  {
-    q: "How soon will I hear back?",
-    a: "We aim to reply as quickly as we can. If your message is about an upcoming session, mention the date so we can prioritise it.",
-  },
-  {
-    q: "Can I book a session directly instead?",
-    a: "Yes. Use “Book a session” at the top of any page to choose the type of guidance, your life area and a preferred date.",
-  },
-  {
-    q: "Is what I share kept confidential?",
-    a: "Always. Your message and personal details are only used to respond to you and prepare your guidance.",
-  },
-  {
-    q: "I'm not sure what kind of help I need.",
-    a: "That's completely fine — just describe what's on your mind. We'll suggest whether astrology, counselling or both would suit you best.",
-  },
-];
-
-export function QuickAnswers() {
-  return (
-    <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
-      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Before you write</p>
-          <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
-            Quick <em>answers.</em>
-          </h2>
-          <p className="mt-5 max-w-sm leading-relaxed text-ink-2">
-            A few things people often ask us. For everything else, see the full list of questions.
-          </p>
-          <Link
-            href="/#faq"
-            className="group mt-8 inline-flex items-center gap-2 font-semibold underline decoration-gold decoration-2 underline-offset-8 transition hover:text-astro"
-          >
-            View all FAQs
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <div className="divide-y divide-line border-y border-line">
-            {QUICK.map((f) => (
-              <details key={f.q} className="group py-2">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-2xl leading-snug [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line transition group-open:rotate-45 group-open:bg-ink group-open:text-paper">
-                    <Plus className="h-4 w-4" />
-                  </span>
-                </summary>
-                <p className="max-w-2xl pb-5 pr-12 leading-relaxed text-ink-2">{f.a}</p>
-              </details>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </Reveal>
       </div>

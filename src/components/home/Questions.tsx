@@ -83,15 +83,28 @@ export default function Questions() {
         </Reveal>
 
         <Reveal delay={120}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Real-life questions we hear</p>
-          <div className="mt-6 min-h-[19rem] sm:min-h-[17rem] lg:min-h-[18rem]" aria-live="polite">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">
+            Real-life questions we hear
+          </p>
+          <div
+            className="mt-6 min-h-[19rem] sm:min-h-[17rem] lg:min-h-[18rem]"
+            aria-live="polite"
+          >
             <div key={i} className="rise">
-              <p className="max-w-xl font-display text-4xl font-light italic leading-[1.15] sm:text-5xl">{QUESTIONS[i].q}</p>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{QUESTIONS[i].a}</p>
+              <p className="max-w-xl font-display text-4xl font-light italic leading-[1.15] sm:text-5xl">
+                {QUESTIONS[i].q}
+              </p>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
+                {QUESTIONS[i].a}
+              </p>
             </div>
           </div>
 
-          <div className="mt-6 flex items-center gap-2" role="tablist" aria-label="Choose question">
+          <div
+            className="mt-6 flex items-center gap-2"
+            role="tablist"
+            aria-label="Choose question"
+          >
             {QUESTIONS.map((q, n) => (
               <button
                 key={q.q}
@@ -101,7 +114,9 @@ export default function Questions() {
                 onClick={() => setI(n)}
                 className="grid h-6 place-items-center"
               >
-                <span className={`block h-1.5 rounded-full transition-all duration-500 ${n === i ? "w-8 bg-ink" : "w-1.5 bg-ink/25"}`} />
+                <span
+                  className={`block h-1.5 rounded-full transition-all duration-500 ${n === i ? "w-8 bg-ink" : "w-1.5 bg-ink/25"}`}
+                />
               </button>
             ))}
             <span className="ml-3 text-sm text-ink-3">

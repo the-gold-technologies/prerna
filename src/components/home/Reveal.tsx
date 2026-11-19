@@ -10,7 +10,12 @@ type Props = {
 };
 
 /* Fades content up the first time it scrolls into view. */
-export default function Reveal({ children, className = "", delay = 0, as: Tag = "div" }: Props) {
+export default function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  as: Tag = "div",
+}: Props) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
 

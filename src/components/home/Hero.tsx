@@ -213,7 +213,7 @@ export default function Hero() {
                     </span>
                   </React.Fragment>
                 );
-              }),
+              })
             )}
           </div>
         </div>

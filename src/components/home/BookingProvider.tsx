@@ -11,7 +11,11 @@ export function useBooking() {
   return useContext(Ctx);
 }
 
-export default function BookingProvider({ children }: { children: React.ReactNode }) {
+export default function BookingProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const [area, setArea] = useState<string | undefined>();
 
@@ -23,7 +27,9 @@ export default function BookingProvider({ children }: { children: React.ReactNod
   return (
     <Ctx.Provider value={{ openBooking }}>
       {children}
-      {open && <BookingModal defaultArea={area} onClose={() => setOpen(false)} />}
+      {open && (
+        <BookingModal defaultArea={area} onClose={() => setOpen(false)} />
+      )}
     </Ctx.Provider>
   );
 }

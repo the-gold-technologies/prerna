@@ -9,7 +9,9 @@
 
 @theme inline {
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui,
+    sans-serif;
 
   --color-paper: #faf6ee;
   --color-sand: #f3ebdc;
@@ -60,7 +62,13 @@ body {
 /* Emphasised words in headings get a gilded gradient */
 h1 em,
 h2 em {
-  background: linear-gradient(100deg, #8c6418 0%, #c49a3e 45%, #d6ac52 60%, #9a6f1e 100%);
+  background: linear-gradient(
+    100deg,
+    #8c6418 0%,
+    #c49a3e 45%,
+    #d6ac52 60%,
+    #9a6f1e 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -69,13 +77,23 @@ h2 em {
 /* On dark panels, use a lighter gold */
 .bg-ink h2 em,
 .on-dark h2 em {
-  background-image: linear-gradient(100deg, #e8d3a2 0%, #f4e2b8 40%, #d6ac52 100%);
+  background-image: linear-gradient(
+    100deg,
+    #e8d3a2 0%,
+    #f4e2b8 40%,
+    #d6ac52 100%
+  );
 }
 
 /* Gold hairline divider */
 .gold-rule {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(184, 137, 47, 0.55), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 137, 47, 0.55),
+    transparent
+  );
 }
 
 /* Arch frame — the recurring visual motif */
@@ -97,63 +115,127 @@ h2 em {
 
 /* ---------- Motion ---------- */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes spin-rev {
-  to { transform: rotate(-360deg); }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 @keyframes twinkle {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 @keyframes orb-pulse {
-  0%, 100% { opacity: 0.75; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.06); }
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
 }
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 @keyframes draw {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.spin-slow { animation: spin 80s linear infinite; }
-.spin-mid { animation: spin 40s linear infinite; }
-.spin-rev { animation: spin-rev 60s linear infinite; }
-.twinkle { animation: twinkle 4s ease-in-out infinite; }
-.float { animation: float 7s ease-in-out infinite; }
-.marquee { animation: marquee 40s linear infinite; }
-.orb-pulse { animation: orb-pulse 5s ease-in-out infinite; }
+.spin-slow {
+  animation: spin 80s linear infinite;
+}
+.spin-mid {
+  animation: spin 40s linear infinite;
+}
+.spin-rev {
+  animation: spin-rev 60s linear infinite;
+}
+.twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+.float {
+  animation: float 7s ease-in-out infinite;
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+.orb-pulse {
+  animation: orb-pulse 5s ease-in-out infinite;
+}
 .shooting-star {
   display: block;
   width: 150px;
   height: 1.5px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(184, 137, 47, 0.95), rgba(184, 137, 47, 0));
+  background: linear-gradient(
+    90deg,
+    rgba(184, 137, 47, 0.95),
+    rgba(184, 137, 47, 0)
+  );
   opacity: 0;
   animation: shoot 11s ease-in infinite;
 }
 @keyframes shoot {
-  0% { transform: translateX(0); opacity: 0; }
-  2% { opacity: 1; }
-  12% { transform: translateX(-520px); opacity: 0; }
-  100% { transform: translateX(-520px); opacity: 0; }
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  12% {
+    transform: translateX(-520px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-520px);
+    opacity: 0;
+  }
 }
-.rise { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
 
 /* Scroll reveal (toggled by <Reveal>) */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .reveal.in {
   opacity: 1;
@@ -169,20 +251,36 @@ h2 em {
 
 /* Journey: stage nodes pop in along the path, text fades after */
 @keyframes stage-pop {
-  from { opacity: 0; transform: scale(0.4); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 @keyframes stage-fade {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .stage-pop,
 .stage-fade {
   opacity: 0;
 }
 @keyframes stage-progress {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 .stage-progress {
   animation: stage-progress linear forwards;
@@ -199,19 +297,52 @@ h2 em {
 }
 
 @media (scripting: none) {
-  .stage-pop, .stage-fade { opacity: 1; }
-  .reveal { opacity: 1; transform: none; }
-  .draw-path { stroke-dashoffset: 0; }
+  .stage-pop,
+  .stage-fade {
+    opacity: 1;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .draw-path {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .spin-slow, .spin-mid, .spin-rev, .twinkle, .float, .marquee, .rise, .orb-pulse, .shooting-star {
+  html {
+    scroll-behavior: auto;
+  }
+  .spin-slow,
+  .spin-mid,
+  .spin-rev,
+  .twinkle,
+  .float,
+  .marquee,
+  .rise,
+  .orb-pulse,
+  .shooting-star {
     animation: none !important;
   }
-  .reveal { transition: opacity 0.4s linear; transform: none; }
-  .draw-path { stroke-dashoffset: 0; animation: none !important; }
-  .stage-pop, .stage-fade { opacity: 1; animation: none !important; }
-  .stage-progress { animation: none; width: 100%; }
-  .travel-dot { display: none; }
+  .reveal {
+    transition: opacity 0.4s linear;
+    transform: none;
+  }
+  .draw-path {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+  .stage-pop,
+  .stage-fade {
+    opacity: 1;
+    animation: none !important;
+  }
+  .stage-progress {
+    animation: none;
+    width: 100%;
+  }
+  .travel-dot {
+    display: none;
+  }
 }

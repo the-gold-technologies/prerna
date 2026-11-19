@@ -32,13 +32,21 @@ export default function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "border-b border-line/70 bg-paper/85 backdrop-blur-md" : "border-b border-transparent"
+        scrolled || open
+          ? "border-b border-line/70 bg-paper/85 backdrop-blur-md"
+          : "border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5 text-gold" aria-label="PRERNA home">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 text-gold"
+          aria-label="PRERNA home"
+        >
           <LogoMark className="h-9 w-9" />
-          <span className="font-display text-2xl font-semibold tracking-[0.18em] text-ink">PRERNA</span>
+          <span className="font-display text-2xl font-semibold tracking-[0.18em] text-ink">
+            PRERNA
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">

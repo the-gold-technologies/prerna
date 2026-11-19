@@ -83,7 +83,7 @@ export default function Journey() {
     if (paused) return;
     const t = setInterval(
       () => setActive((n) => (n + 1) % STAGES.length),
-      STEP_MS,
+      STEP_MS
     );
     return () => clearInterval(t);
   }, [paused]);

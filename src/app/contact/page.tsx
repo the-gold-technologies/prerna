@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import BookingProvider from "@/components/home/BookingProvider";
 import Nav from "@/components/home/Nav";
 import Contact from "@/components/home/Contact";
+import Faq from "@/components/home/Faq";
 import Closing from "@/components/home/Closing";
-import { ContactIntro, QuickAnswers } from "@/components/contact/ContactIntro";
+import { ContactIntro } from "@/components/contact/ContactIntro";
 
 export const metadata: Metadata = {
   title: "Contact — PRERNA",
@@ -18,7 +19,7 @@ export default function ContactPage() {
       <main>
         <ContactIntro />
         <Contact />
-        <QuickAnswers />
+        <Faq showWriteToUs={false} />
         <Closing showCta={false} />
       </main>
     </BookingProvider>

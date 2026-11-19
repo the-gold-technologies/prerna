@@ -15,18 +15,30 @@ const field =
 
 export default function FreeInsight() {
   const { openBooking } = useBooking();
-  const [form, setForm] = useState({ name: "", dob: "", time: "", place: "", email: "" });
+  const [form, setForm] = useState({
+    name: "",
+    dob: "",
+    time: "",
+    place: "",
+    email: "",
+  });
   const [result, setResult] = useState<Result | null>(null);
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [k]: e.target.value });
+  const set =
+    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      setForm({ ...form, [k]: e.target.value });
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: send details to PRERNA backend for the full chart / email follow-up
     setResult(calculatePythagoreanNumerology(form.name, form.dob));
     try {
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 }, colors: ["#e8d3a2", "#b8892f", "#fffcf6"] });
+      confetti({
+        particleCount: 60,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ["#e8d3a2", "#b8892f", "#fffcf6"],
+      });
     } catch {}
   };
 
@@ -47,17 +59,28 @@ export default function FreeInsight() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 sm:px-10 lg:grid-cols-2 lg:gap-20 lg:py-28">
           {/* Visual */}
           <Reveal className="relative mx-auto w-full max-w-[420px]">
-            <NumberRing active={result?.lifePathNumber} className="h-auto w-full" />
+            <NumberRing
+              active={result?.lifePathNumber}
+              className="h-auto w-full"
+            />
             <div className="absolute inset-0 grid place-items-center text-center">
               {result ? (
                 <div key={result.lifePathNumber} className="rise">
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-gold-soft/80">Life path</p>
-                  <p className="font-display text-7xl leading-none text-gold-soft sm:text-8xl">{result.lifePathNumber}</p>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-gold-soft/80">
+                    Life path
+                  </p>
+                  <p className="font-display text-7xl leading-none text-gold-soft sm:text-8xl">
+                    {result.lifePathNumber}
+                  </p>
                 </div>
               ) : (
                 <div>
-                  <p className="font-display text-6xl italic leading-none text-gold-soft/90 sm:text-7xl">?</p>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-gold-soft/60">Your number</p>
+                  <p className="font-display text-6xl italic leading-none text-gold-soft/90 sm:text-7xl">
+                    ?
+                  </p>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-gold-soft/60">
+                    Your number
+                  </p>
                 </div>
               )}
             </div>
@@ -67,22 +90,61 @@ export default function FreeInsight() {
           <Reveal delay={120}>
             {!result ? (
               <>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-soft">Free · 1 minute</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-soft">
+                  Free · 1 minute
+                </p>
                 <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
                   What do your <em>numbers</em> say?
                 </h2>
-                <form onSubmit={submit} className="mt-10 grid gap-x-6 gap-y-5 sm:grid-cols-2">
-                  <input required className={`${field} sm:col-span-2`} placeholder="Full name" value={form.name} onChange={set("name")} autoComplete="name" aria-label="Full name" />
+                <form
+                  onSubmit={submit}
+                  className="mt-10 grid gap-x-6 gap-y-5 sm:grid-cols-2"
+                >
+                  <input
+                    required
+                    className={`${field} sm:col-span-2`}
+                    placeholder="Full name"
+                    value={form.name}
+                    onChange={set("name")}
+                    autoComplete="name"
+                    aria-label="Full name"
+                  />
                   <label className="grid text-xs uppercase tracking-[0.15em] text-paper/55">
                     Date of birth
-                    <input required type="date" className={field} value={form.dob} onChange={set("dob")} />
+                    <input
+                      required
+                      type="date"
+                      className={field}
+                      value={form.dob}
+                      onChange={set("dob")}
+                    />
                   </label>
                   <label className="grid text-xs uppercase tracking-[0.15em] text-paper/55">
                     Birth time
-                    <input type="time" className={field} value={form.time} onChange={set("time")} />
+                    <input
+                      type="time"
+                      className={field}
+                      value={form.time}
+                      onChange={set("time")}
+                    />
                   </label>
-                  <input className={field} placeholder="Birth place" value={form.place} onChange={set("place")} aria-label="Birth place" />
-                  <input required type="email" className={field} placeholder="Email" value={form.email} onChange={set("email")} autoComplete="email" aria-label="Email" />
+                  <input
+                    className={field}
+                    placeholder="Birth place"
+                    value={form.place}
+                    onChange={set("place")}
+                    aria-label="Birth place"
+                  />
+                  <input
+                    required
+                    type="email"
+                    className={field}
+                    placeholder="Email"
+                    value={form.email}
+                    onChange={set("email")}
+                    autoComplete="email"
+                    aria-label="Email"
+                  />
                   <button
                     type="submit"
                     className="group mt-4 flex items-center justify-center gap-2 rounded-full bg-gold-soft px-7 py-4 font-semibold text-ink transition hover:bg-paper sm:col-span-2 sm:justify-self-start"
@@ -91,7 +153,9 @@ export default function FreeInsight() {
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </button>
                 </form>
-                <p className="mt-5 text-xs text-paper/45">Pythagorean numerology · Your details stay private.</p>
+                <p className="mt-5 text-xs text-paper/45">
+                  Pythagorean numerology · Your details stay private.
+                </p>
               </>
             ) : (
               <div className="rise">
@@ -101,10 +165,15 @@ export default function FreeInsight() {
                 <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
                   {result.archetype.title.replace(/\s*\(.*\)$/, "")}
                 </h2>
-                <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/75">{result.archetype.essence}</p>
+                <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/75">
+                  {result.archetype.essence}
+                </p>
                 <div className="mt-8 flex flex-wrap gap-2">
                   {result.archetype.strengths.map((s) => (
-                    <span key={s} className="rounded-full border border-paper/20 px-4 py-1.5 text-sm text-paper/85">
+                    <span
+                      key={s}
+                      className="rounded-full border border-paper/20 px-4 py-1.5 text-sm text-paper/85"
+                    >
                       {s}
                     </span>
                   ))}
@@ -116,8 +185,12 @@ export default function FreeInsight() {
                     ["Planet", result.archetype.rulingPlanet.split(" ")[0]],
                   ].map(([k, v]) => (
                     <div key={k}>
-                      <dt className="text-[11px] uppercase tracking-[0.18em] text-paper/50">{k}</dt>
-                      <dd className="mt-1 font-display text-3xl text-gold-soft">{v}</dd>
+                      <dt className="text-[11px] uppercase tracking-[0.18em] text-paper/50">
+                        {k}
+                      </dt>
+                      <dd className="mt-1 font-display text-3xl text-gold-soft">
+                        {v}
+                      </dd>
                     </div>
                   ))}
                 </dl>

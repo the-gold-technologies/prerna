@@ -7,15 +7,39 @@ import { LIFE_AREAS } from "@/data/prernaData";
 import { ZodiacWheel, MindRipples, Lotus } from "./art";
 
 const SERVICES = [
-  { id: "astrology", label: "Vedic Astrology", hint: "Kundli, compatibility, timing", Art: ZodiacWheel, tone: "text-astro bg-astro-soft" },
-  { id: "counselling", label: "Counselling", hint: "Emotional & relationship support", Art: MindRipples, tone: "text-psych bg-psych-soft" },
-  { id: "journey", label: "Self-Discovery Journey", hint: "All three, guided 1-1", Art: Lotus, tone: "text-spirit bg-spirit-soft" },
+  {
+    id: "astrology",
+    label: "Vedic Astrology",
+    hint: "Kundli, compatibility, timing",
+    Art: ZodiacWheel,
+    tone: "text-astro bg-astro-soft",
+  },
+  {
+    id: "counselling",
+    label: "Counselling",
+    hint: "Emotional & relationship support",
+    Art: MindRipples,
+    tone: "text-psych bg-psych-soft",
+  },
+  {
+    id: "journey",
+    label: "Self-Discovery Journey",
+    hint: "All three, guided 1-1",
+    Art: Lotus,
+    tone: "text-spirit bg-spirit-soft",
+  },
 ];
 
 const inputCls =
   "w-full rounded-xl border border-line bg-card px-4 py-3 text-[15px] text-ink placeholder:text-ink-3 outline-none transition focus:border-gold focus:ring-4 focus:ring-gold-soft/60";
 
-export default function BookingModal({ defaultArea, onClose }: { defaultArea?: string; onClose: () => void }) {
+export default function BookingModal({
+  defaultArea,
+  onClose,
+}: {
+  defaultArea?: string;
+  onClose: () => void;
+}) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [service, setService] = useState("journey");
   const [area, setArea] = useState(defaultArea ?? "Career");
@@ -39,7 +63,12 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
     // TODO: connect to PRERNA backend / booking API
     setStep(3);
     try {
-      confetti({ particleCount: 70, spread: 70, origin: { y: 0.55 }, colors: ["#b8892f", "#e8d3a2", "#3b3488", "#d6ac52"] });
+      confetti({
+        particleCount: 70,
+        spread: 70,
+        origin: { y: 0.55 },
+        colors: ["#b8892f", "#e8d3a2", "#3b3488", "#d6ac52"],
+      });
     } catch {}
   };
 
@@ -47,7 +76,10 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
 
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-6">
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
       <div
         ref={dialogRef}
         tabIndex={-1}
@@ -67,14 +99,20 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
         {step < 3 && (
           <div className="mb-6 flex gap-1.5 pr-14">
             {[1, 2].map((s) => (
-              <span key={s} className={`h-1 flex-1 rounded-full ${s <= step ? "bg-ink" : "bg-line"}`} />
+              <span
+                key={s}
+                className={`h-1 flex-1 rounded-full ${s <= step ? "bg-ink" : "bg-line"}`}
+              />
             ))}
           </div>
         )}
 
         {step === 1 && (
           <div>
-            <h2 id="booking-title" className="font-display text-4xl leading-tight">
+            <h2
+              id="booking-title"
+              className="font-display text-4xl leading-tight"
+            >
               How can we help?
             </h2>
             <div className="mt-6 grid gap-3">
@@ -85,10 +123,14 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
                   onClick={() => setService(id)}
                   aria-pressed={service === id}
                   className={`flex items-center gap-4 rounded-2xl border p-3 text-left transition ${
-                    service === id ? "border-ink bg-card shadow-sm" : "border-line hover:border-ink-3"
+                    service === id
+                      ? "border-ink bg-card shadow-sm"
+                      : "border-line hover:border-ink-3"
                   }`}
                 >
-                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl ${tone}`}>
+                  <span
+                    className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl ${tone}`}
+                  >
                     <Art className="h-11 w-11" />
                   </span>
                   <span className="flex-1">
@@ -97,7 +139,9 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
                   </span>
                   <span
                     className={`grid h-6 w-6 place-items-center rounded-full border ${
-                      service === id ? "border-ink bg-ink text-paper" : "border-line"
+                      service === id
+                        ? "border-ink bg-ink text-paper"
+                        : "border-line"
                     }`}
                   >
                     {service === id && <Check className="h-3.5 w-3.5" />}
@@ -115,7 +159,9 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
                   onClick={() => setArea(a.title)}
                   aria-pressed={area === a.title}
                   className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
-                    area === a.title ? "border-ink bg-ink text-paper" : "border-line text-ink-2 hover:border-ink-3"
+                    area === a.title
+                      ? "border-ink bg-ink text-paper"
+                      : "border-line text-ink-2 hover:border-ink-3"
                   }`}
                 >
                   {a.title}
@@ -134,30 +180,70 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
 
         {step === 2 && (
           <form onSubmit={submit}>
-            <h2 id="booking-title" className="font-display text-4xl leading-tight">
+            <h2
+              id="booking-title"
+              className="font-display text-4xl leading-tight"
+            >
               Your details
             </h2>
             <p className="mt-2 text-sm text-ink-2">
               {chosen.label} · {area}
             </p>
             <div className="mt-6 grid gap-3">
-              <input required placeholder="Full name" className={inputCls} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} autoComplete="name" />
-              <input required type="email" placeholder="Email" className={inputCls} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} autoComplete="email" />
+              <input
+                required
+                placeholder="Full name"
+                className={inputCls}
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                autoComplete="name"
+              />
+              <input
+                required
+                type="email"
+                placeholder="Email"
+                className={inputCls}
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                autoComplete="email"
+              />
               <label className="grid gap-1.5 text-sm text-ink-2">
                 Preferred date
-                <input required type="date" className={inputCls} value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
+                <input
+                  required
+                  type="date"
+                  className={inputCls}
+                  value={form.date}
+                  onChange={(e) => setForm({ ...form, date: e.target.value })}
+                />
               </label>
-              <textarea rows={3} placeholder="Anything you'd like us to know? (optional)" className={`${inputCls} resize-none`} value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+              <textarea
+                rows={3}
+                placeholder="Anything you'd like us to know? (optional)"
+                className={`${inputCls} resize-none`}
+                value={form.note}
+                onChange={(e) => setForm({ ...form, note: e.target.value })}
+              />
             </div>
             <div className="mt-8 flex gap-3">
-              <button type="button" onClick={() => setStep(1)} aria-label="Back" className="grid h-[56px] w-[56px] shrink-0 place-items-center rounded-full border border-line transition hover:bg-sand">
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                aria-label="Back"
+                className="grid h-[56px] w-[56px] shrink-0 place-items-center rounded-full border border-line transition hover:bg-sand"
+              >
                 <ArrowLeft className="h-4 w-4" />
               </button>
-              <button type="submit" className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink px-6 font-semibold text-paper transition hover:bg-astro">
+              <button
+                type="submit"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink px-6 font-semibold text-paper transition hover:bg-astro"
+              >
                 Request session <ArrowRight className="h-4 w-4" />
               </button>
             </div>
-            <p className="mt-4 text-center text-xs text-ink-3">Private & confidential. We&apos;ll confirm a time by email.</p>
+            <p className="mt-4 text-center text-xs text-ink-3">
+              Private & confidential. We&apos;ll confirm a time by email.
+            </p>
           </form>
         )}
 
@@ -169,8 +255,13 @@ export default function BookingModal({ defaultArea, onClose }: { defaultArea?: s
             <h2 id="booking-title" className="mt-4 font-display text-4xl">
               Thank you{form.name ? `, ${form.name.split(" ")[0]}` : ""}.
             </h2>
-            <p className="mx-auto mt-3 max-w-xs text-ink-2">We&apos;ll reach out at {form.email} to confirm your session.</p>
-            <button onClick={onClose} className="mt-8 rounded-full border border-ink px-7 py-3 font-semibold transition hover:bg-ink hover:text-paper">
+            <p className="mx-auto mt-3 max-w-xs text-ink-2">
+              We&apos;ll reach out at {form.email} to confirm your session.
+            </p>
+            <button
+              onClick={onClose}
+              className="mt-8 rounded-full border border-ink px-7 py-3 font-semibold transition hover:bg-ink hover:text-paper"
+            >
               Done
             </button>
           </div>
