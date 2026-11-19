@@ -8,34 +8,34 @@ import { useBooking } from "./BookingProvider";
 
 const QUESTIONS = [
   {
-    q: "Why do the same relationship patterns keep repeating?",
+    q: "Why do relationship patterns keep repeating in your life?",
     img: "/images/connection.jpg",
     alt: "Two hands reaching towards each other",
-    a: "Repeating patterns are rarely bad luck. Your chart shows the lessons you are drawn to, and counselling uncovers the early experiences that shaped how you love. Seeing both is often what finally breaks the cycle.",
+    a: "Repeating patterns in love and partnership are rarely bad luck. Your birth chart maps karmic lessons your soul seeks to explore, while counselling unpacks attachment conditioning. Bringing awareness to both heals subconscious relationship scripts and permanently breaks the cycle.",
   },
   {
-    q: "Am I on the right path — or living someone else's dream?",
+    q: "Am I on the right path — or living someone's dream?",
     img: "/images/mountains.jpg",
     alt: "A person sitting on a rock looking out over a mountain range",
-    a: "We look at your natural strengths and the timing of your current planetary period, then talk through the fears and expectations that keep you where you are — so the next step feels clear, not risky.",
+    a: "External success often masks inner restlessness when you carry family expectations rather than your authentic vocational calling. We analyze the 10th House of Karma and current planetary periods alongside coaching, giving you clear direction on whether to pivot, expand, or build something.",
   },
   {
-    q: "Why do I feel empty when everything looks fine?",
+    q: "Why do I feel empty even when everything looks fine?",
     img: "/images/meditation.jpg",
     alt: "A person meditating quietly at sunrise",
-    a: "Sometimes life asks us to turn inward. Gentle spiritual practices, mindfulness and supportive conversation help you understand that feeling and reconnect with what genuinely matters to you.",
+    a: "Pivotal inner voids often arise during major planetary transitions when the soul demands depth that material accomplishments cannot satisfy. Instead of dreading emptiness, we treat it as an invitation to turn inward, transforming quiet dread into sacred presence, clarity, and enduring peace.",
   },
   {
-    q: "Is this the right time to move, invest or begin again?",
+    q: "Is this the right time to relocate, invest, or begin?",
     img: "/images/night-sky.jpg",
     alt: "A starry night sky over the mountains",
-    a: "Timing matters. We study the planetary windows that support change in each area of life, so you can plan big decisions — relocation, property, a new venture — with more confidence.",
+    a: "Major life shifts require harmonious cosmic timing. Acting during discordant cycles demands tenfold effort, while aligned timing creates natural momentum. We calculate your personalized Muhurta and transit windows across finances, property, and career, giving you clarity on when to take decisive action.",
   },
   {
-    q: "Why do I react the way I do?",
+    q: "Why do I react this way when emotions suddenly take over?",
     img: "/images/journaling.jpg",
     alt: "A pen writing reflective notes in a journal",
-    a: "Strong reactions usually have deep roots. Self-assessment and counselling help you trace your emotional triggers and learn calmer, kinder ways to respond — to others and to yourself.",
+    a: "Sudden emotional flare-ups and anxiety loops are protective mechanisms rooted in constitutional planetary imbalances and nervous system conditioning. By examining your Moon sign and temperament, we uncover what is triggered, equipping you with daily grounding tools for emotional sovereignty and calm clarity.",
   },
 ];
 
@@ -57,7 +57,7 @@ export default function Questions() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <Reveal className="relative mx-auto w-full max-w-[440px]">
           <div className="arch relative aspect-[4/5] w-full bg-sand shadow-[0_40px_80px_-40px_rgba(29,26,56,0.5)]">
             {QUESTIONS.map((item, n) => (
@@ -84,9 +84,9 @@ export default function Questions() {
 
         <Reveal delay={120}>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Real-life questions we hear</p>
-          <div className="mt-6 min-h-[20rem] sm:min-h-[18rem]" aria-live="polite">
+          <div className="mt-6 min-h-[19rem] sm:min-h-[17rem] lg:min-h-[18rem]" aria-live="polite">
             <div key={i} className="rise">
-              <p className="font-display text-4xl font-light italic leading-[1.15] sm:text-5xl">{QUESTIONS[i].q}</p>
+              <p className="max-w-xl font-display text-4xl font-light italic leading-[1.15] sm:text-5xl">{QUESTIONS[i].q}</p>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">{QUESTIONS[i].a}</p>
             </div>
           </div>

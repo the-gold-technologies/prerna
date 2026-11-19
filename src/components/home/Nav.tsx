@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { LogoMark } from "./art";
@@ -35,21 +36,21 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="/" className="flex items-center gap-2.5 text-gold" aria-label="PRERNA home">
+        <Link href="/" className="flex items-center gap-2.5 text-gold" aria-label="PRERNA home">
           <LogoMark className="h-9 w-9" />
           <span className="font-display text-2xl font-semibold tracking-[0.18em] text-ink">PRERNA</span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
               className={`text-sm transition hover:text-ink ${pathname === l.href ? "font-semibold text-ink" : "text-ink-2"}`}
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -74,14 +75,14 @@ export default function Nav() {
       {open && (
         <div className="border-t border-line/70 px-5 pb-6 pt-2 lg:hidden">
           {LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
               className="block border-b border-line/60 py-4 font-display text-2xl"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
           <button
             onClick={() => {

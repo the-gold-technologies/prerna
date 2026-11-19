@@ -7,15 +7,13 @@ import Reveal from "./Reveal";
 import { useBooking } from "./BookingProvider";
 
 const INCLUDES = [
-  "Personal birth & astrological data",
+  "Birth & astrological data",
   "Planetary & zodiac insights",
   "Relationship analysis",
   "Major life areas",
   "Career & growth",
   "Money, family & education",
-  "Personalised recommendations",
-  "Balancing & healing techniques",
-  "Weekly horoscope & ongoing insights",
+  "Personal recommendations",
 ];
 
 const BARS = [
@@ -38,7 +36,9 @@ export default function Report() {
           <div className="relative rounded-[28px] border border-line bg-paper p-7 shadow-[0_40px_80px_-40px_rgba(29,26,56,0.45)]">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-ink-3">Personal report</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-ink-3">
+                  Personal report
+                </p>
                 <p className="mt-1 font-display text-3xl">Your Life Map</p>
               </div>
               <ZodiacWheel className="h-20 w-20 text-astro" />
@@ -51,7 +51,10 @@ export default function Report() {
                     <span className="text-ink-3">{b.v}</span>
                   </div>
                   <div className="mt-1.5 h-1.5 rounded-full bg-sand">
-                    <div className={`h-full rounded-full ${b.c}`} style={{ width: `${b.v}%` }} />
+                    <div
+                      className={`h-full rounded-full ${b.c}`}
+                      style={{ width: `${b.v}%` }}
+                    />
                   </div>
                 </div>
               ))}
@@ -69,19 +72,25 @@ export default function Report() {
 
         {/* Copy */}
         <Reveal delay={120}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Personalised report</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">
+            Personalised report
+          </p>
           <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
             Your life, <em className="text-astro">mapped.</em>
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-ink-2">
-            A detailed, personalised analysis of your life — built from precise astrological calculations and
-            interpreted by the PRERNA team, then explained to you on a private 1-1 consultation call.
+            A detailed, personalised analysis of your life — built from precise
+            astrological calculations and interpreted by the PRERNA team, then
+            explained to you on a private 1-1 consultation call.
           </p>
-          <p className="mt-9 text-sm font-semibold">Your report can cover</p>
-          <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+          <p className="mt-6 text-sm font-semibold">Your report can cover</p>
+          <ul className="mt-4 grid gap-x-5 gap-y-3 sm:grid-cols-2">
             {INCLUDES.map((t) => (
-              <li key={t} className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-spirit-soft text-spirit">
+              <li
+                key={t}
+                className="flex items-center gap-2.5 text-sm sm:text-[15px] whitespace-nowrap text-ink"
+              >
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-spirit-soft text-spirit">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {t}

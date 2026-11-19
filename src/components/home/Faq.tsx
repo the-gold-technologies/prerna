@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
 import { Plus } from "lucide-react";
 import Reveal from "./Reveal";
 
@@ -30,36 +33,73 @@ const FAQS = [
 ];
 
 export default function Faq() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+  };
+
   return (
     <section id="faq" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
-      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">FAQ</p>
-          <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
-            Questions, <em className="text-astro">answered.</em>
-          </h2>
-          <p className="mt-5 max-w-sm leading-relaxed text-ink-2">
-            Everything you might want to know before beginning. Can&apos;t find your answer?{" "}
-            <a href="/contact" className="font-semibold text-ink underline decoration-gold underline-offset-4">
-              Write to us
-            </a>
-            .
-          </p>
-        </Reveal>
+      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 items-start">
+        {/* Sticky Left Column */}
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">FAQ</p>
+            <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
+              Questions, <em className="text-astro">answered.</em>
+            </h2>
+            <p className="mt-5 max-w-sm leading-relaxed text-ink-2">
+              Everything you might want to know before beginning. Can&apos;t find your answer?{" "}
+              <Link href="/contact" className="font-semibold text-ink underline decoration-gold underline-offset-4">
+                Write to us
+              </Link>
+              .
+            </p>
+          </Reveal>
+        </div>
 
+        {/* Right Column: Smooth Animated Accordion */}
         <Reveal delay={120}>
           <div className="divide-y divide-line border-y border-line">
-            {FAQS.map((f) => (
-              <details key={f.q} className="group py-2">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-2xl leading-snug [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line transition group-open:rotate-45 group-open:bg-ink group-open:text-paper">
-                    <Plus className="h-4 w-4" />
-                  </span>
-                </summary>
-                <p className="max-w-2xl pb-5 pr-12 leading-relaxed text-ink-2">{f.a}</p>
-              </details>
-            ))}
+            {FAQS.map((f, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <div key={f.q} className="py-2">
+                  <button
+                    type="button"
+                    onClick={() => toggle(idx)}
+                    aria-expanded={isOpen}
+                    className="flex w-full cursor-pointer items-center justify-between gap-6 py-4 text-left font-display text-2xl leading-snug transition-colors hover:text-gold-deep"
+                  >
+                    <span>{f.q}</span>
+                    <span
+                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line transition-all duration-300 ${
+                        isOpen
+                          ? "rotate-45 bg-ink text-paper border-ink"
+                          : "bg-transparent text-ink hover:border-gold hover:text-gold"
+                      }`}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </span>
+                  </button>
+
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] duration-400 ease-in-out ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="max-w-2xl pb-5 pr-12 leading-relaxed text-ink-2">
+                        {f.a}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Reveal>
       </div>

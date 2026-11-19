@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CelestialScene, LogoMark } from "./art";
+import { LogoMark } from "./art";
 import Reveal from "./Reveal";
 import { useBooking } from "./BookingProvider";
 
@@ -44,7 +45,7 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
     <>
       {/* Meaning + final CTA */}
       {showCta && (
-      <section className="relative overflow-hidden py-28 lg:py-36">
+      <section className="relative overflow-hidden bg-card py-28 lg:py-36">
         <span
           aria-hidden
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[11rem] font-semibold leading-none text-gold/[0.11] sm:text-[20rem] lg:text-[26rem]"
@@ -52,10 +53,7 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
           प्रेरणा
         </span>
         <Reveal className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
-          <div className="arch mx-auto h-44 w-36 shadow-xl ring-1 ring-gold/40 sm:h-52 sm:w-40">
-            <CelestialScene className="h-full w-full" />
-          </div>
-          <p className="mt-10 text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Prerna · inspiration</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Prerna · inspiration</p>
           <h2 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-7xl">
             Begin where <em>you are.</em>
           </h2>
@@ -71,9 +69,9 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
               Book a 1-1 session
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </button>
-            <a href="/#free-insight" className="w-full rounded-full border border-ink/25 bg-paper/60 px-7 py-4 font-semibold backdrop-blur transition hover:border-ink hover:bg-card sm:w-auto">
+            <Link href="/#free-insight" className="w-full rounded-full border border-ink/25 bg-paper/60 px-7 py-4 font-semibold backdrop-blur transition hover:border-ink hover:bg-card sm:w-auto">
               Try the free insight
-            </a>
+            </Link>
           </div>
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-2">
             {["Free to start", "Private & confidential", "Expert 1-1 guidance"].map((t) => (
@@ -90,10 +88,10 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
       <footer className="border-t-2 border-gold/60 bg-ink text-paper">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <a href="/" className="flex items-center gap-2.5 text-gold-soft">
+            <Link href="/" className="flex items-center gap-2.5 text-gold-soft">
               <LogoMark className="h-9 w-9" />
               <span className="font-display text-2xl font-semibold tracking-[0.18em] text-paper">PRERNA</span>
-            </a>
+            </Link>
             <p className="mt-4 max-w-xs font-display text-xl italic text-paper/70">Purpose, Peace & Inner Inspiration.</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/55">
               A self-discovery and personal guidance platform uniting Astrology, Psychology and Spirituality.
@@ -105,9 +103,9 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
               <ul className="mt-5 space-y-3">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href} className="text-paper/70 transition hover:text-paper">
+                    <Link href={l.href} className="text-paper/70 transition hover:text-paper">
                       {l.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
