@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, CalendarHeart, Sparkles, MessageCircleQuestion, Plus } from "lucide-react";
-import { CelestialScene } from "../home/art";
+import Image from "next/image";
 import Reveal from "../home/Reveal";
 import { useBooking } from "../home/BookingProvider";
+import VedicChakra, { SkyDecor } from "../home/VedicChakra";
 
 export function ContactIntro() {
   const { openBooking } = useBooking();
@@ -36,25 +37,40 @@ export function ContactIntro() {
       {/* soft background wash, matching the home hero */}
       <div className="pointer-events-none absolute -right-40 top-0 h-[560px] w-[560px] rounded-full bg-dawn/40 blur-3xl" />
       <div className="pointer-events-none absolute -left-40 top-40 h-[420px] w-[420px] rounded-full bg-astro-soft blur-3xl" />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[10rem] font-semibold leading-none text-gold/[0.08] sm:text-[18rem] lg:text-[22rem]"
-      >
-        प्रेरणा
-      </span>
+
+      {/* large rotating rashi chakra behind the heading */}
+      <div className="pointer-events-none absolute left-1/2 top-[330px] h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 text-gold-deep opacity-[0.22] sm:h-[960px] sm:w-[960px]">
+        <VedicChakra className="h-full w-full" />
+      </div>
+      <SkyDecor />
 
       <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-14 sm:px-8 lg:pb-28 lg:pt-20">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <div className="arch mx-auto h-36 w-28 shadow-xl ring-1 ring-gold/40 sm:h-44 sm:w-36">
-            <CelestialScene className="h-full w-full" />
+          <div className="relative mx-auto h-40 w-40 sm:h-44 sm:w-44">
+            <div className="orb-pulse absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(232,211,162,0.85),rgba(232,211,162,0)_70%)]" />
+            <div className="spin-slow absolute -inset-4 rounded-full border border-dashed border-gold/50">
+              <span className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-gold-bright shadow-[0_0_12px_rgba(214,172,82,0.9)]" />
+            </div>
+            <div className="relative h-full w-full rounded-full bg-paper p-1.5 shadow-xl ring-1 ring-gold/50">
+              <div className="relative h-full w-full overflow-hidden rounded-full">
+                <Image
+                  src="/images/sunrise-water.jpg"
+                  alt="A person standing with open arms at sunrise, reflected in still water"
+                  fill
+                  preload
+                  sizes="176px"
+                  className="object-cover object-[55%_center]"
+                />
+              </div>
+            </div>
           </div>
-          <p className="mt-9 text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">Contact PRERNA</p>
-          <h1 className="mt-4 font-display text-5xl font-light leading-[1.02] sm:text-7xl">
+          <p className="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Contact PRERNA</p>
+          <h1 className="mt-5 font-display text-5xl font-light leading-[1.02] sm:text-7xl">
             Let&apos;s begin a <em>conversation.</em>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
-            Whether you have a question, need help choosing the right guidance, or simply want to know more about
-            PRERNA — we&apos;re here, and every message is read with care.
+          <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-2">
+            A question, help choosing the right guidance, or simply curious about PRERNA — we&apos;re here, and
+            every message is read with care.
           </p>
         </Reveal>
 

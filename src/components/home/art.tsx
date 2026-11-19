@@ -160,31 +160,53 @@ export function ZodiacWheel({ className = "" }: { className?: string }) {
   );
 }
 
-/* Psychology: thought ripples & connected nodes */
+/* Psychology: empathetic resonance, thought ripples & emotional balance */
 export function MindRipples({ className = "" }: { className?: string }) {
-  const nodes: [number, number][] = [
-    [62, 70], [176, 58], [196, 150], [120, 196], [44, 160], [120, 112],
-  ];
   return (
     <svg viewBox="0 0 240 240" className={className} aria-hidden="true" fill="none">
-      <g stroke="currentColor">
-        {[24, 44, 66, 90, 114].map((r, i) => (
-          <circle key={r} cx="120" cy="112" r={r} strokeOpacity={0.8 - i * 0.14} />
-        ))}
+      {/* Outer calming horizon */}
+      <circle cx="120" cy="120" r="110" stroke="currentColor" strokeOpacity="0.18" strokeDasharray="3 4" />
+      <circle cx="120" cy="120" r="88" stroke="currentColor" strokeOpacity="0.3" />
+
+      {/* Two empathetic intersecting circles of dialogue & holding space */}
+      <g stroke="currentColor" strokeWidth="1.5">
+        <circle cx="96" cy="120" r="64" strokeOpacity="0.75" />
+        <circle cx="144" cy="120" r="64" strokeOpacity="0.75" />
       </g>
-      <g className="spin-rev" style={{ transformOrigin: "120px 112px" }}>
-        <g stroke="currentColor" strokeOpacity=".55" strokeDasharray="3 4">
-          {nodes.slice(0, 5).map(([x, y], i) => (
-            <line key={i} x1="120" y1="112" x2={x} y2={y} />
-          ))}
-          <path d="M62 70 Q120 30 176 58" />
-          <path d="M196 150 Q170 210 120 196" />
-        </g>
-        {nodes.slice(0, 5).map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={i % 2 ? 4 : 6} fill="currentColor" />
-        ))}
+
+      {/* Gentle spinning subtle resonance ring */}
+      <g className="spin-slow" style={{ transformOrigin: "120px 120px" }}>
+        <circle cx="120" cy="120" r="44" stroke="currentColor" strokeOpacity="0.4" strokeDasharray="4 6" />
+        <circle cx="120" cy="76" r="3.5" fill="currentColor" />
+        <circle cx="120" cy="164" r="3.5" fill="currentColor" />
       </g>
-      <circle cx="120" cy="112" r="10" fill="currentColor" />
+
+      {/* Harmonic wave of emotional balance and untangling thoughts */}
+      <path
+        d="M36 120 C64 88, 92 88, 120 120 C148 152, 176 152, 204 120"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeOpacity="0.9"
+        strokeLinecap="round"
+      />
+      <path
+        d="M36 120 C64 152, 92 152, 120 120 C148 88, 176 88, 204 120"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeOpacity="0.4"
+        strokeDasharray="4 4"
+        strokeLinecap="round"
+      />
+
+      {/* Inner seed of mindfulness & insight */}
+      <circle cx="120" cy="120" r="8" fill="currentColor" />
+      <circle cx="120" cy="120" r="18" stroke="currentColor" strokeOpacity="0.45" strokeDasharray="2 3" />
+
+      {/* Nodes of awareness across the therapeutic connection */}
+      <circle cx="96" cy="85" r="4" fill="currentColor" />
+      <circle cx="144" cy="85" r="4" fill="currentColor" />
+      <circle cx="96" cy="155" r="4" fill="currentColor" />
+      <circle cx="144" cy="155" r="4" fill="currentColor" />
     </svg>
   );
 }
