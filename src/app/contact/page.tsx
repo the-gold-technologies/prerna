@@ -4,7 +4,7 @@ import Nav from "@/components/home/Nav";
 import Contact from "@/components/home/Contact";
 import Faq from "@/components/home/Faq";
 import Closing from "@/components/home/Closing";
-import { ContactIntro } from "@/components/contact/ContactIntro";
+import { ContactIntro } from "@/components/contact";
 
 export const metadata: Metadata = {
   title: "Contact — PRERNA",

@@ -2,22 +2,22 @@ import type { Metadata } from "next";
 import BookingProvider from "@/components/home/BookingProvider";
 import Nav from "@/components/home/Nav";
 import Closing from "@/components/home/Closing";
-import ElementQuiz from "@/components/quiz/ElementQuiz";
+import { ElementQuiz } from "@/components/quiz";
 
 export const metadata: Metadata = {
-  title: "Which element guides you? — PRERNA quiz",
+  title: "Vedic Elements Quiz · Discover Your Guiding Element",
   description:
-    "A free seven-question self-discovery quiz based on the Vedic elements: Agni, Prithvi, Vayu and Jala.",
+    "A free reflective quiz based on the five Vedic elements (pancha mahabhuta): Agni, Prithvi, Vayu and Jala.",
 };
 
 export default function QuizPage() {
   return (
     <BookingProvider>
-      <Nav overDark />
+      <Nav />
       <main>
         <ElementQuiz />
-        <Closing showCta={false} />
       </main>
+      <Closing />
     </BookingProvider>
   );
 }

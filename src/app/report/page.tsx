@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import BookingProvider from "@/components/home/BookingProvider";
 import Nav from "@/components/home/Nav";
 import Closing from "@/components/home/Closing";
-import { ReportHero, ReportPipeline } from "@/components/report/ReportSections";
 import {
+  ReportHero,
+  ReportPipeline,
   ReportDelivery,
   JourneyPath,
   ReportFaq,
-} from "@/components/report/ReportMore";
+} from "@/components/report";
 
 export const metadata: Metadata = {
-  title: "Personalised Report & Journey — PRERNA",
+  title: "PRERNA · Personalised Vedic Report & Consultation",
   description:
-    "A detailed, personalised analysis of your life from your birth chart, explained on a private 1-1 call, plus a six-stage self-discovery journey.",
+    "A deep, human reading of your birth chart across career, love, health and your natural strengths. Includes a 1-1 call with our guides.",
 };
 
 export default function ReportPage() {
@@ -25,8 +26,8 @@ export default function ReportPage() {
         <ReportDelivery />
         <JourneyPath />
         <ReportFaq />
-        <Closing showCta={false} />
       </main>
+      <Closing />
     </BookingProvider>
   );
 }

@@ -3,11 +3,7 @@ import BookingProvider from "@/components/home/BookingProvider";
 import Nav from "@/components/home/Nav";
 import FreeInsight from "@/components/home/FreeInsight";
 import Closing from "@/components/home/Closing";
-import {
-  ToolsHero,
-  QuizBand,
-  ToolsCatalogue,
-} from "@/components/tools/ToolsSections";
+import { ToolsHero, QuizBand, ToolsCatalogue } from "@/components/tools";
 
 export const metadata: Metadata = {
   title: "Free Self-Assessment & Tools — PRERNA",

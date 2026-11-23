@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import BookingProvider from "@/components/home/BookingProvider";
 import Nav from "@/components/home/Nav";
 import Closing from "@/components/home/Closing";
-import BlogIndex from "@/components/blog/BlogIndex";
+import {
+  BlogHero,
+  BlogStories,
+  BlogQuote,
+  BlogLibraryIndex,
+  BlogNewsletter,
+} from "@/components/blog";
 
 export const metadata: Metadata = {
   title: "Journal — PRERNA",
@@ -15,8 +21,12 @@ export default function BlogPage() {
     <BookingProvider>
       <Nav />
       <main>
-        <BlogIndex />
-        <Closing />
+        <BlogHero />
+        <BlogStories />
+        <BlogQuote />
+        <BlogLibraryIndex />
+        <BlogNewsletter />
+        <Closing showCta={false} />
       </main>
     </BookingProvider>
   );

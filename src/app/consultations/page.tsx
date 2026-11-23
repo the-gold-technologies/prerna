@@ -9,7 +9,7 @@ import {
   LensRows,
   SessionFlow,
   WaysToBegin,
-} from "@/components/consultations/ConsultationSections";
+} from "@/components/consultations";
 
 export const metadata: Metadata = {
   title: "Consultations & Services — PRERNA",
