@@ -308,6 +308,88 @@ h2 em {
   animation: stage-fade 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
+/* ---------- Quiz: ritual motion ---------- */
+/* Counter-rotation keeps orbiting items upright (pairs with spin-slow / spin-rev) */
+.orbit-upright {
+  animation: spin-rev 80s linear infinite;
+}
+.orbit-upright-rev {
+  display: inline-block;
+  animation: spin 60s linear infinite;
+}
+/* Sparkles flying out of a chosen answer */
+@keyframes burst {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(1) rotate(90deg);
+    opacity: 0;
+  }
+}
+.burst {
+  animation: burst 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* Soft golden glow that breathes around active stars and the result */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 172, 82, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(214, 172, 82, 0);
+  }
+}
+.glow-pulse {
+  animation: glow-pulse 2.2s ease-out infinite;
+}
+/* Yantra drawing itself on the result screen */
+/* Fades the yantra's inner colour in once the line has been drawn */
+@keyframes fill-in {
+  from {
+    fill-opacity: 0;
+  }
+}
+.yantra-draw [pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    draw 2.2s cubic-bezier(0.6, 0, 0.3, 1) 0.3s forwards,
+    fill-in 1.2s ease 1.8s both;
+}
+/* Constellation line drawing between progress stars */
+@keyframes line-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.line-grow {
+  transform-origin: left;
+  animation: line-grow 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* Rising embers / motes drifting up behind the quiz */
+@keyframes drift-up {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-60vh);
+    opacity: 0;
+  }
+}
+.drift-up {
+  animation: drift-up linear infinite;
+}
+
 @media (scripting: none) {
   .stage-pop,
   .stage-fade {
@@ -335,8 +417,21 @@ h2 em {
   .rise,
   .orb-pulse,
   .shooting-star,
-  .travel {
+  .travel,
+  .orbit-upright,
+  .orbit-upright-rev,
+  .glow-pulse,
+  .line-grow,
+  .drift-up {
     animation: none !important;
+  }
+  .burst,
+  .drift-up {
+    display: none;
+  }
+  .yantra-draw [pathLength] {
+    animation: none !important;
+    stroke-dashoffset: 0;
   }
   .reveal {
     transition: opacity 0.4s linear;

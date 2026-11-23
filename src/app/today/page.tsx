@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function TodayPage() {
   return (
     <BookingProvider>
-      <Nav />
+      <Nav overDark />
       <main>
         <TodaySky />
       </main>

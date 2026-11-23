@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 export default function QuizPage() {
   return (
     <BookingProvider>
-      <Nav />
+      <Nav overDark />
       <main>
-        <ElementQuiz />
+        {/* the footer hides while the questions are in progress */}
+        <ElementQuiz footer={<Closing />} />
       </main>
-      <Closing />
     </BookingProvider>
   );
 }
