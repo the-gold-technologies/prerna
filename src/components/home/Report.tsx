@@ -160,10 +160,10 @@ export default function Report() {
                         return (
                           <line
                             key={i}
-                            x1={50 + Math.cos(a) * 34}
-                            y1={50 + Math.sin(a) * 34}
-                            x2={50 + Math.cos(a) * 46}
-                            y2={50 + Math.sin(a) * 46}
+                            x1={Math.round((50 + Math.cos(a) * 34) * 100) / 100}
+                            y1={Math.round((50 + Math.sin(a) * 34) * 100) / 100}
+                            x2={Math.round((50 + Math.cos(a) * 46) * 100) / 100}
+                            y2={Math.round((50 + Math.sin(a) * 46) * 100) / 100}
                           />
                         );
                       })}

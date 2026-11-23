@@ -12,15 +12,17 @@ const LINKS = [
   { label: "Consultations", href: "/consultations" },
   { label: "Report & Journey", href: "/report" },
   { label: "Free Tools", href: "/free-tools" },
+  { label: "Today's Sky", href: "/today" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Nav() {
+export default function Nav({ overDark = false }: { overDark?: boolean }) {
   const { openBooking } = useBooking();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const light = overDark && !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -44,18 +46,23 @@ export default function Nav() {
           aria-label="PRERNA home"
         >
           <LogoMark className="h-9 w-9" />
-          <span className="font-display text-2xl font-semibold tracking-[0.18em] text-ink">
+          <span
+            className={`font-display text-2xl font-semibold tracking-[0.18em] transition ${light ? "text-paper" : "text-ink"}`}
+          >
             PRERNA
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-6 lg:flex xl:gap-8"
+          aria-label="Primary"
+        >
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
-              className={`text-sm transition hover:text-ink ${pathname === l.href ? "font-semibold text-ink" : "text-ink-2"}`}
+              className={`text-sm transition ${light ? "hover:text-paper" : "hover:text-ink"} ${pathname === l.href ? (light ? "font-semibold text-paper" : "font-semibold text-ink") : light ? "text-paper/75" : "text-ink-2"}`}
             >
               {l.label}
             </Link>
@@ -65,13 +72,13 @@ export default function Nav() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => openBooking()}
-            className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition ring-1 ring-inset ring-gold/45 hover:bg-astro sm:block"
+            className={`hidden rounded-full px-5 py-2.5 text-sm font-semibold ring-1 ring-inset ring-gold/45 transition sm:block ${light ? "bg-paper text-ink hover:bg-dawn" : "bg-ink text-paper hover:bg-astro"}`}
           >
             Book a session
           </button>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="grid h-11 w-11 place-items-center rounded-full text-ink lg:hidden"
+            className={`grid h-11 w-11 place-items-center rounded-full lg:hidden ${light ? "text-paper" : "text-ink"}`}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >

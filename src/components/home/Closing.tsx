@@ -14,6 +14,8 @@ const FOOTER = [
       { label: "Consultations & services", href: "/consultations" },
       { label: "Personalised report & journey", href: "/report" },
       { label: "Free self-assessment & tools", href: "/free-tools" },
+      { label: "Today's sky & panchang", href: "/today" },
+      { label: "Which element guides you?", href: "/quiz" },
       { label: "Three paths", href: "/#paths" },
     ],
   },
@@ -32,6 +34,8 @@ const FOOTER = [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms & conditions", href: "/terms" },
       { label: "Cookie policy", href: "/cookies" },
+      { label: "Refund & cancellation", href: "/refund" },
+      { label: "Disclaimer", href: "/disclaimer" },
     ],
   },
 ];

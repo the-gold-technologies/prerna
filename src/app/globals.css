@@ -189,6 +189,18 @@ h2 em {
 .float {
   animation: float 7s ease-in-out infinite;
 }
+/* A light that travels along a line, left to right */
+@keyframes travel {
+  from {
+    left: -6rem;
+  }
+  to {
+    left: 100%;
+  }
+}
+.travel {
+  animation: travel 6s ease-in-out infinite;
+}
 .marquee {
   animation: marquee 40s linear infinite;
 }
@@ -322,7 +334,8 @@ h2 em {
   .marquee,
   .rise,
   .orb-pulse,
-  .shooting-star {
+  .shooting-star,
+  .travel {
     animation: none !important;
   }
   .reveal {
