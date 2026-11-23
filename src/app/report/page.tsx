@@ -4,7 +4,6 @@ import Nav from "@/components/home/Nav";
 import Closing from "@/components/home/Closing";
 import { ReportHero, ReportPipeline } from "@/components/report/ReportSections";
 import {
-  ReportContents,
   ReportDelivery,
   JourneyPath,
   ReportFaq,
@@ -22,7 +21,6 @@ export default function ReportPage() {
       <Nav />
       <main>
         <ReportHero />
-        <ReportContents />
         <ReportPipeline />
         <ReportDelivery />
         <JourneyPath />

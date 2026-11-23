@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Reveal from "../home/Reveal";
 import { useBooking } from "../home/BookingProvider";
 import { ZodiacWheel } from "../home/art";
-import { Sparkle } from "../home/VedicChakra";
+import VedicChakra, { Sparkle } from "../home/VedicChakra";
 
 const CHAPTERS = [
   {
@@ -62,51 +62,73 @@ const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 export function ReportHero() {
   const { openBooking } = useBooking();
   return (
-    <section className="relative overflow-hidden pb-24 pt-32 sm:pt-36">
-      <div className="pointer-events-none absolute left-1/2 top-40 h-[620px] w-[1100px] -translate-x-1/2 rounded-full bg-dawn/50 blur-3xl" />
-      <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-        <p className="rise text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">
-          Personalised report & journey
-        </p>
-        <h1
-          className="rise mx-auto mt-5 max-w-4xl font-display text-5xl font-light leading-[1.02] sm:text-7xl"
-          style={{ animationDelay: "80ms" }}
-        >
-          Your life, written <em className="text-gold-deep">in the stars</em>{" "}
-          and read with care.
-        </h1>
-        <p
-          className="rise mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-2"
-          style={{ animationDelay: "160ms" }}
-        >
-          A premium analysis of your chart and every major area of your life,
-          explained to you on a private 1-1 call.
-        </p>
-        <div
-          className="rise mt-9 flex flex-wrap justify-center gap-3"
-          style={{ animationDelay: "240ms" }}
-        >
-          <button
-            onClick={() => openBooking()}
-            className="group flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
+    <section className="relative overflow-hidden pb-24 pt-32 sm:pt-36 lg:pb-32">
+      <div className="pointer-events-none absolute -right-40 top-20 h-[700px] w-[900px] rounded-full bg-dawn/55 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 bottom-0 h-[420px] w-[420px] rounded-full bg-astro-soft/70 blur-3xl" />
+      <VedicChakra className="pointer-events-none absolute -right-48 top-10 hidden h-[760px] w-[760px] text-gold opacity-25 lg:block" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <p className="rise flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">
+            <span className="h-px w-8 bg-gold" aria-hidden />
+            Personalised report & journey
+          </p>
+          <h1
+            className="rise mt-6 font-display text-5xl font-light leading-[1.02] tracking-tight sm:text-6xl lg:text-[4.4rem]"
+            style={{ animationDelay: "80ms" }}
           >
-            Get my report
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </button>
-          <a
-            href="#chapters"
-            className="rounded-full border border-ink/25 px-7 py-4 font-semibold transition hover:border-ink"
+            Your life, written <em className="text-gold-deep">in the stars</em>{" "}
+            and read with care.
+          </h1>
+          <p
+            className="rise mt-6 max-w-md text-lg leading-relaxed text-ink-2"
+            style={{ animationDelay: "160ms" }}
           >
-            Look inside
-          </a>
+            A premium analysis of your chart and every major area of your life,
+            explained to you on a private 1-1 call.
+          </p>
+          <div
+            className="rise mt-9 flex flex-wrap gap-3"
+            style={{ animationDelay: "240ms" }}
+          >
+            <button
+              onClick={() => openBooking()}
+              className="group flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
+            >
+              Get my report
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </button>
+            <a
+              href="#journey"
+              className="rounded-full border border-ink/25 px-7 py-4 font-semibold transition hover:border-ink"
+            >
+              See the journey
+            </a>
+          </div>
+          <dl
+            className="rise mt-12 grid max-w-md grid-cols-3 border-t border-line pt-6"
+            style={{ animationDelay: "320ms" }}
+          >
+            {[
+              ["IX", "chapters"],
+              ["1-1", "explained"],
+              ["Weekly", "insights"],
+            ].map(([v, k], i) => (
+              <div key={k} className={i ? "border-l border-line pl-5" : ""}>
+                <dt className="font-display text-3xl text-ink">{v}</dt>
+                <dd className="mt-1 text-[11px] uppercase tracking-[0.2em] text-ink-3">
+                  {k}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         {/* open book */}
         <div
-          className="rise relative mx-auto mt-20 max-w-4xl [perspective:1800px]"
+          className="rise relative mx-auto w-full max-w-[760px] [perspective:1800px] lg:col-span-7"
           style={{ animationDelay: "320ms" }}
         >
-          <div className="relative grid grid-cols-2 [transform:rotateX(18deg)] [transform-style:preserve-3d]">
+          <div className="relative grid grid-cols-2 [transform:rotateX(16deg)_rotateY(-12deg)_rotateZ(1deg)] [transform-style:preserve-3d]">
             {/* left page */}
             <div className="relative origin-right rounded-l-[18px] border border-line bg-card p-6 text-left shadow-[0_50px_80px_-40px_rgba(28,24,68,0.5)] [transform:rotateY(10deg)] sm:p-10">
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-deep">
@@ -161,6 +183,13 @@ export function ReportHero() {
             </div>
           </div>
           <div className="mx-auto mt-2 h-6 w-[90%] rounded-[50%] bg-ink/20 blur-xl" />
+          <div className="float absolute -left-3 -top-6 rounded-full border border-gold/40 bg-paper/95 px-4 py-2 text-sm text-ink shadow-lg backdrop-blur sm:-left-8">
+            <span className="font-display text-lg text-gold-deep">IX</span>{" "}
+            chapters
+          </div>
+          <div className="float absolute -bottom-2 right-2 rounded-full bg-ink px-4 py-2 text-sm text-paper shadow-xl [animation-delay:2s] sm:-right-4">
+            ✦ 1-1 call included
+          </div>
           <Sparkle className="twinkle absolute -left-4 top-8 h-6 w-6 text-gold" />
           <Sparkle className="twinkle absolute -right-6 top-24 h-4 w-4 text-gold-deep [animation-delay:1.2s]" />
         </div>

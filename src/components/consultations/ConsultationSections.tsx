@@ -17,15 +17,9 @@ const eyebrow =
  * ===================================================================== */
 export function ConsultHero() {
   const { openBooking } = useBooking();
-  const FACTS = [
-    ["45 min", "per session"],
-    ["1-1", "always private"],
-    ["Online", "video or phone"],
-    ["3", "lenses to choose"],
-  ];
 
   return (
-    <section className="relative overflow-hidden pt-28 sm:pt-32">
+    <section className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pb-24">
       <div className="pointer-events-none absolute -left-40 top-20 h-[520px] w-[520px] rounded-full bg-astro-soft/70 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
         <div className="rise lg:col-span-7 lg:pt-10">
@@ -56,20 +50,6 @@ export function ConsultHero() {
               Find your life area
             </a>
           </div>
-
-          <dl className="mt-14 grid max-w-2xl grid-cols-2 border-t border-line sm:grid-cols-4">
-            {FACTS.map(([v, k], i) => (
-              <div
-                key={k}
-                className={`py-5 ${i > 0 ? "sm:border-l sm:pl-5" : ""} ${i % 2 ? "border-l pl-5" : ""} border-line`}
-              >
-                <dt className="font-display text-4xl text-ink">{v}</dt>
-                <dd className="mt-1 text-xs uppercase tracking-[0.2em] text-ink-3">
-                  {k}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <div
@@ -87,7 +67,7 @@ export function ConsultHero() {
               className="object-cover object-[22%_50%]"
             />
           </div>
-          <div className="absolute -left-2 bottom-10 max-w-[260px] rounded-2xl border border-line bg-paper/95 p-5 shadow-xl backdrop-blur sm:-left-10">
+          <div className="absolute -left-2 bottom-2 max-w-[260px] rounded-2xl border border-line bg-paper/95 p-5 shadow-xl backdrop-blur sm:-left-10">
             <p className="font-display text-xl italic leading-snug text-ink">
               &ldquo;Not a prediction. A conversation about you.&rdquo;
             </p>

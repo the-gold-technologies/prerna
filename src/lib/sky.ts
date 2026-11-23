@@ -179,7 +179,7 @@ export function ayanamsha(d: Date) {
 }
 
 /** Tropical ecliptic longitude of the Sun. */
-function sunTropical(d: Date) {
+export function sunTropical(d: Date) {
   const n = julianDay(d) - 2451545.0;
   const L = 280.46 + 0.9856474 * n;
   const g = 357.528 + 0.9856003 * n;
@@ -187,7 +187,7 @@ function sunTropical(d: Date) {
 }
 
 /** Tropical ecliptic longitude of the Moon (main periodic terms). */
-function moonTropical(d: Date) {
+export function moonTropical(d: Date) {
   const n = julianDay(d) - 2451545.0;
   const L0 = 218.316 + 13.176396 * n;
   const M = 134.963 + 13.064993 * n; // Moon's mean anomaly
