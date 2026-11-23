@@ -11,12 +11,10 @@ const FOOTER = [
   {
     title: "Explore",
     links: [
-      { label: "About PRERNA", href: "/#about" },
+      { label: "Consultations & services", href: "/consultations" },
+      { label: "Personalised report & journey", href: "/report" },
+      { label: "Free self-assessment & tools", href: "/free-tools" },
       { label: "Three paths", href: "/#paths" },
-      { label: "Consultations & services", href: "/#services" },
-      { label: "Self-discovery journey", href: "/#journey" },
-      { label: "Personalised report", href: "/#report" },
-      { label: "Free insight", href: "/#free-insight" },
     ],
   },
   {

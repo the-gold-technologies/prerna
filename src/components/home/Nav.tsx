@@ -8,11 +8,11 @@ import { LogoMark } from "./art";
 import { useBooking } from "./BookingProvider";
 
 const LINKS = [
-  { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
-  { label: "Journey", href: "/#journey" },
-  { label: "Reports", href: "/#report" },
-  { label: "Free insight", href: "/#free-insight" },
+  { label: "About", href: "/about" },
+  { label: "Consultations", href: "/consultations" },
+  { label: "Report & Journey", href: "/report" },
+  { label: "Free Tools", href: "/free-tools" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
