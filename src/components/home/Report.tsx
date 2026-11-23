@@ -1,22 +1,16 @@
 "use client";
 
-import React from "react";
-import { ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ArrowRight, RotateCcw } from "lucide-react";
 import Reveal from "./Reveal";
 import { useBooking } from "./BookingProvider";
+import { BIRTH_CITIES } from "@/lib/chart";
 
-/* What the report covers, numbered like chapters. */
-const CHAPTERS = [
-  "Birth & astrological data",
-  "Planetary & zodiac insights",
-  "Relationship analysis",
-  "Major life areas",
-  "Career & growth",
-  "Money, family & education",
-  "Personal recommendations",
-];
-
-const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
+const field =
+  "w-full border-b border-line bg-transparent py-2 text-ink outline-none transition placeholder:text-ink-3 focus:border-gold";
+const lbl = "text-[10px] font-semibold uppercase tracking-[0.22em] text-ink-3";
 
 /* The nine grahas, in weekday order. */
 const GRAHAS = ["Su", "Mo", "Ma", "Me", "Ju", "Ve", "Sa", "Ra", "Ke"];
@@ -47,8 +41,29 @@ const META = [
   ["Place", "Your birthplace"],
 ];
 
+/*
+ * Homepage chart section: the Life Map card beside a short birth-details
+ * form. Submitting opens /chart with the chart already cast.
+ */
 export default function Report() {
   const { openBooking } = useBooking();
+  const router = useRouter();
+  const [form, setForm] = useState({ name: "", date: "", time: "", place: "" });
+  const [error, setError] = useState("");
+
+  const go = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.date || !form.time)
+      return setError("Please enter your date and time of birth.");
+    const city = BIRTH_CITIES.find(
+      (c) => c.name.toLowerCase() === form.place.trim().toLowerCase()
+    );
+    if (!city)
+      return setError("Please choose your place of birth from the list.");
+    const q = new URLSearchParams({ d: form.date, t: form.time, p: city.name });
+    if (form.name.trim()) q.set("n", form.name.trim());
+    router.push(`/chart?${q.toString()}`);
+  };
 
   return (
     <section id="report" className="overflow-hidden bg-card py-24 lg:py-32">
@@ -67,8 +82,8 @@ export default function Report() {
             />
 
             <button
-              onClick={() => openBooking()}
-              aria-label="Your life map: opens with your birth details"
+              onClick={() => router.push("/chart")}
+              aria-label="Your life map: open the birth chart calculator"
               className="group relative block w-full rounded-[26px] border border-line bg-paper p-3 text-left shadow-[0_40px_80px_-40px_rgba(29,26,56,0.45)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_50px_90px_-40px_rgba(29,26,56,0.55)]"
             >
               {/* Inner gold frame, like a printed page */}
@@ -77,7 +92,7 @@ export default function Report() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold-deep">
-                      PRERNA · Personal report
+                      PRERNA · Your birth chart
                     </p>
                     <p className="mt-1.5 font-display text-[2rem] leading-none text-ink">
                       Your Life Map
@@ -206,56 +221,122 @@ export default function Report() {
             >
               <span className="absolute inset-1.5 rounded-full border border-dashed border-gold/50" />
               <span className="font-display text-[13px] leading-tight text-gold-bright">
-                1-1 call
+                Free
                 <br />
                 <span className="text-[10px] uppercase tracking-[0.18em] text-paper/70">
-                  included
+                  instant
                 </span>
               </span>
             </div>
           </div>
         </Reveal>
 
-        {/* Copy (right on desktop) */}
+        {/* Copy + birth details (right on desktop) */}
         <Reveal delay={120} className="order-1 lg:order-2 lg:col-span-7">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">
-            Personal report <span className="text-gold">·</span> your life map
+            Your birth chart <span className="text-gold">·</span> Janma Kundali
           </p>
           <h2 className="mt-5 max-w-2xl font-display text-4xl font-light leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
             Did you know your birth chart holds a map of{" "}
             <em className="text-astro">your whole life?</em>
           </h2>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
-            The sky at the moment you were born sets your houses, your planets
-            and the periods your life moves through. PRERNA reads that chart
-            precisely, adds a psychological lens, and walks you through it on a
-            private 1-1 call.
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
+            Enter your birth details to see your lagna, planets, nakshatra and
+            dasha periods, free and in seconds.
           </p>
 
-          <ol className="mt-10 grid max-w-2xl border-t border-line sm:grid-cols-2 sm:gap-x-10">
-            {CHAPTERS.map((t, i) => (
-              <li
-                key={t}
-                className="flex items-baseline gap-4 border-b border-line py-3.5"
+          <form
+            onSubmit={go}
+            className="mt-8 max-w-2xl rounded-[24px] border border-gold/30 bg-paper p-6 shadow-[0_30px_60px_-45px_rgba(28,24,68,0.45)] sm:p-7"
+          >
+            <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+              <label className="sm:col-span-2">
+                <span className={lbl}>Name</span>
+                <input
+                  className={field}
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Optional"
+                  autoComplete="name"
+                />
+              </label>
+              <label>
+                <span className={lbl}>Date of birth</span>
+                <input
+                  type="date"
+                  required
+                  min="1900-01-01"
+                  max="2049-12-31"
+                  className={field}
+                  value={form.date}
+                  onChange={(e) => setForm({ ...form, date: e.target.value })}
+                />
+              </label>
+              <label>
+                <span className={lbl}>Time of birth</span>
+                <input
+                  type="time"
+                  required
+                  className={field}
+                  value={form.time}
+                  onChange={(e) => setForm({ ...form, time: e.target.value })}
+                />
+              </label>
+              <label className="sm:col-span-2">
+                <span className={lbl}>Place of birth</span>
+                <input
+                  className={field}
+                  list="home-birth-cities"
+                  value={form.place}
+                  placeholder="Start typing a city"
+                  autoComplete="off"
+                  onChange={(e) => setForm({ ...form, place: e.target.value })}
+                />
+                <datalist id="home-birth-cities">
+                  {BIRTH_CITIES.map((c) => (
+                    <option key={c.name} value={c.name} />
+                  ))}
+                </datalist>
+              </label>
+            </div>
+            {error && <p className="mt-4 text-sm text-[#7a2a45]">{error}</p>}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                type="submit"
+                className="group flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
               >
-                <span className="w-7 shrink-0 font-display text-sm text-gold-deep">
-                  {ROMAN[i]}
-                </span>
-                <span className="text-[15px] text-ink">{t}</span>
-              </li>
-            ))}
-          </ol>
+                See my chart
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setForm({ name: "", date: "", time: "", place: "" });
+                  setError("");
+                }}
+                className="flex items-center gap-2 rounded-full border border-ink/20 px-5 py-4 text-sm font-semibold transition hover:border-ink"
+              >
+                <RotateCcw className="h-4 w-4" /> Clear
+              </button>
+              <Link
+                href="/chart"
+                className="text-sm font-semibold text-ink-2 underline-offset-4 hover:text-ink hover:underline"
+              >
+                Full calculator
+              </Link>
+            </div>
+          </form>
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <p className="mt-5 text-sm text-ink-3">
+            Want it explained?{" "}
             <button
               onClick={() => openBooking()}
-              className="group flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
+              className="font-semibold text-ink underline underline-offset-4"
             >
-              Get my report
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </button>
-            <p className="text-sm text-ink-3">Explained to you, one to one.</p>
-          </div>
+              Get your personalised report
+            </button>{" "}
+            with a 1-1 call.
+          </p>
         </Reveal>
       </div>
     </section>

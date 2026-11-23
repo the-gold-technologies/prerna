@@ -14,6 +14,7 @@ const FOOTER = [
       { label: "Consultations & services", href: "/consultations" },
       { label: "Personalised report & journey", href: "/report" },
       { label: "Free self-assessment & tools", href: "/free-tools" },
+      { label: "Your birth chart (Kundli)", href: "/chart" },
       { label: "Today's sky & panchang", href: "/today" },
       { label: "Which element guides you?", href: "/quiz" },
       { label: "Three paths", href: "/#paths" },
@@ -97,7 +98,7 @@ export default function Closing({ showCta = true }: { showCta?: boolean }) {
         </section>
       )}
 
-      <footer className="border-t-2 border-gold/60 bg-ink text-paper">
+      <footer className="border-t-2 border-gold/60 bg-ink text-paper print:hidden">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-2.5 text-gold-soft">

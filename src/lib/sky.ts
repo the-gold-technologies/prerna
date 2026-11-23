@@ -187,27 +187,68 @@ export function sunTropical(d: Date) {
 }
 
 /** Tropical ecliptic longitude of the Moon (main periodic terms). */
+/* Main periodic terms of the lunar longitude (Meeus, ch. 47):
+ * [D, M, M', F, coefficient in millionths of a degree]. */
+const MOON_TERMS: [number, number, number, number, number][] = [
+  [0, 0, 1, 0, 6288774],
+  [2, 0, -1, 0, 1274027],
+  [2, 0, 0, 0, 658314],
+  [0, 0, 2, 0, 213618],
+  [0, 1, 0, 0, -185116],
+  [0, 0, 0, 2, -114332],
+  [2, 0, -2, 0, 58793],
+  [2, -1, -1, 0, 57066],
+  [2, 0, 1, 0, 53322],
+  [2, -1, 0, 0, 45758],
+  [0, 1, -1, 0, -40923],
+  [1, 0, 0, 0, -34720],
+  [0, 1, 1, 0, -30383],
+  [2, 0, 0, -2, 15327],
+  [0, 0, 1, 2, -12528],
+  [0, 0, 1, -2, 10980],
+  [4, 0, -1, 0, 10675],
+  [0, 0, 3, 0, 10034],
+  [4, 0, -2, 0, 8548],
+  [2, 1, -1, 0, -7888],
+  [2, 1, 0, 0, -6766],
+  [1, 0, -1, 0, -5163],
+  [1, 1, 0, 0, 4987],
+  [2, -1, 1, 0, 4036],
+  [2, 0, 2, 0, 3994],
+  [4, 0, 0, 0, 3861],
+  [2, 0, -3, 0, 3665],
+  [0, 1, -2, 0, -2689],
+  [2, 0, -1, 2, -2602],
+  [2, -1, -2, 0, 2390],
+  [1, 0, 1, 0, -2348],
+  [2, -2, 0, 0, 2236],
+  [0, 1, 2, 0, -2120],
+  [0, 2, 0, 0, -2069],
+  [2, -2, -1, 0, 2048],
+  [2, 0, 1, -2, -1773],
+  [2, 0, 0, 2, -1595],
+  [4, -1, -1, 0, 1215],
+  [0, 0, 2, 2, -1110],
+];
+
+/** Tropical ecliptic longitude of the Moon (Meeus main terms, ~0.01°). */
 export function moonTropical(d: Date) {
-  const n = julianDay(d) - 2451545.0;
-  const L0 = 218.316 + 13.176396 * n;
-  const M = 134.963 + 13.064993 * n; // Moon's mean anomaly
-  const Ms = 357.529 + 0.98560028 * n; // Sun's mean anomaly
-  const D = 297.85 + 12.190749 * n; // mean elongation
-  const F = 93.272 + 13.22935 * n; // argument of latitude
-  return norm(
-    L0 +
-      6.289 * sin(M) -
-      1.274 * sin(2 * D - M) +
-      0.658 * sin(2 * D) +
-      0.214 * sin(2 * M) -
-      0.186 * sin(Ms) -
-      0.114 * sin(2 * F) -
-      0.059 * sin(2 * D - 2 * M) -
-      0.057 * sin(2 * D - Ms - M) +
-      0.053 * sin(2 * D + M) +
-      0.046 * sin(2 * D - Ms) +
-      0.041 * sin(M - Ms)
-  );
+  const T = (julianDay(d) - 2451545.0) / 36525;
+  const Lp = 218.3164477 + 481267.88123421 * T - 0.0015786 * T * T;
+  const D = 297.8501921 + 445267.1114034 * T - 0.0018819 * T * T;
+  const M = 357.5291092 + 35999.0502909 * T - 0.0001536 * T * T;
+  const Mp = 134.9633964 + 477198.8675055 * T + 0.0087414 * T * T;
+  const F = 93.272095 + 483202.0175233 * T - 0.0036539 * T * T;
+  const E = 1 - 0.002516 * T - 0.0000074 * T * T;
+  const A1 = 119.75 + 131.849 * T;
+  const A2 = 53.09 + 479264.29 * T;
+  let sum = 0;
+  for (const [d1, m, mp, f, c] of MOON_TERMS) {
+    const e = Math.abs(m) === 2 ? E * E : m !== 0 ? E : 1;
+    sum += c * e * sin(d1 * D + m * M + mp * Mp + f * F);
+  }
+  sum += 3958 * sin(A1) + 1962 * sin(Lp - F) + 318 * sin(A2);
+  return norm(Lp + sum / 1e6);
 }
 
 /** Sunrise and sunset (sunrise equation) for the day containing `d`. */

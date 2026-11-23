@@ -156,17 +156,17 @@ const GROUPS: { k: string; note: string; tools: Tool[] }[] = [
       {
         t: "Birth chart (Kundli)",
         d: "Rāśi chart with planets, houses and ascendant, North or South style.",
-        soon: true,
+        href: "/chart",
       },
       {
         t: "Moon sign & nakshatra",
         d: "Your Moon sign, birth star and pada.",
-        soon: true,
+        href: "/chart",
       },
       {
         t: "Dasha periods",
         d: "Your Vimshottari periods and what each season brings.",
-        soon: true,
+        href: "/chart",
       },
     ],
   },

@@ -33,7 +33,7 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 print:hidden ${
         scrolled || open
           ? "border-b border-line/70 bg-paper/85 backdrop-blur-md"
           : "border-b border-transparent"
