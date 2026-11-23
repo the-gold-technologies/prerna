@@ -5,3 +5,4 @@ export { SkyNakshatraScale } from "./SkyNakshatraScale";
 export { SkyGuidance, MOON_NOTES } from "./SkyGuidance";
 export { MoonPhase, NakshatraScale, useSky } from "./SkyParts";
 export { default as TodaySky } from "./TodaySky";
+export { Moon3D } from "./Moon3D";

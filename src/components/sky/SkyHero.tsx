@@ -3,7 +3,7 @@
 import React from "react";
 import { MapPin } from "lucide-react";
 import { Sparkle } from "../home/VedicChakra";
-import { MoonPhase } from "./SkyParts";
+import { Moon3D } from "./Moon3D";
 import { CITIES, dateIn, type Panchang } from "@/lib/sky";
 
 export function SkyHero({
@@ -74,18 +74,11 @@ export function SkyHero({
         </div>
 
         <div className="relative mx-auto w-full max-w-[340px]">
-          <div className="pointer-events-none absolute -inset-10 rounded-full border border-gold/20" />
-          <div className="pointer-events-none absolute -inset-20 rounded-full border border-dashed border-gold/10" />
           {p ? (
-            <MoonPhase elongation={p.elongation} className="w-full" />
+            <Moon3D elongation={p.elongation} className="w-full" />
           ) : (
             <div className="aspect-square w-full rounded-full bg-paper/5" />
           )}
-          <p className="mt-6 text-center font-display text-2xl">
-            {p
-              ? `${Math.round(p.illumination * 100)}% lit · ${p.waxing ? "waxing" : "waning"}`
-              : " "}
-          </p>
           <Sparkle className="twinkle absolute -right-4 top-6 h-5 w-5 text-gold-bright" />
         </div>
       </div>
