@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BIRTH_CITIES,
-  VARGAS,
   YEAR_OPTIONS,
   castChart,
   localToUtc,
@@ -13,18 +12,15 @@ import {
 import { panchang, type Panchang } from "@/lib/sky";
 import {
   ChartHero,
-  ChartForm,
-  ChartDiagramView,
-  ChartSummaryStrip,
-  ChartPlanetsTable,
+  ChartNav,
+  ChartReading,
   ChartDashaTimeline,
   ChartStrengthsElements,
   ChartKarakasPanchang,
   ChartTransits,
-  ChartNextSteps,
+  ChartExplainer,
   ChartFaq,
   EMPTY,
-  EXAMPLE,
   fromQuery,
   offsetFor,
   toQuery,
@@ -42,7 +38,6 @@ export default function ChartPage() {
   const [varga, setVarga] = useState(1);
   const [error, setError] = useState("");
   const [toast, setToast] = useState("");
-  const results = useRef<HTMLDivElement>(null);
 
   const flash = (t: string) => {
     setToast(t);
@@ -121,7 +116,9 @@ export default function ChartPage() {
     window.history.replaceState(null, "", `?${toQuery(form).toString()}`);
     if (scroll)
       requestAnimationFrame(() =>
-        results.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+        document
+          .getElementById("live-wheel")
+          ?.scrollIntoView({ behavior: "smooth", block: "center" })
       );
   };
 
@@ -167,79 +164,43 @@ export default function ChartPage() {
     (d) => d.start.getTime() <= now && d.end.getTime() > now
   );
   const shown = chart ? vargaChart(chart, varga) : null;
-  const vInfo = VARGAS.find((v) => v.n === varga)!;
 
   return (
     <>
-      <ChartHero chart={chart} toast={toast} onCopyLink={copyLink} />
+      <ChartHero
+        chart={chart}
+        who={who}
+        f={f}
+        error={error}
+        onUpdate={update}
+        onPlace={onPlace}
+        onSubmit={() => cast(f)}
+        onReset={reset}
+      />
 
-      {/* Form + Chart canvas */}
-      <section className="pb-20 pt-10 lg:pb-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12">
-          <ChartForm
-            f={f}
-            error={error}
-            onUpdate={update}
-            onPlace={onPlace}
-            onSubmit={() => cast(f)}
-            onReset={reset}
-            onLoadExample={() => {
-              setF(EXAMPLE);
-              cast(EXAMPLE);
-            }}
-          />
-
-          <ChartDiagramView
+      {chart && who && shown && (
+        <>
+          <ChartNav name={who.name} toast={toast} onCopyLink={copyLink} />
+          <ChartReading
+            chart={chart}
             shown={shown}
             style={style}
             varga={varga}
             accuracy={f.accuracy}
+            ayan={f.ayan}
+            node={f.node}
             onStyleChange={setStyle}
             onVargaChange={setVarga}
           />
-        </div>
-      </section>
-
-      {/* Results */}
-      {chart && who && shown && (
-        <div ref={results} className="scroll-mt-16">
-          <ChartSummaryStrip chart={chart} who={who} running={running} />
-
-          <ChartPlanetsTable
-            chart={chart}
-            shown={shown}
-            vInfo={vInfo}
-            ayan={f.ayan}
-            node={f.node}
-          />
-
           <ChartDashaTimeline chart={chart} running={running} now={now} />
-
           <ChartStrengthsElements chart={chart} />
-
           <ChartKarakasPanchang chart={chart} birthDay={birthDay} />
-
           {transit && <ChartTransits chart={chart} transit={transit} />}
-
-          <ChartNextSteps />
-        </div>
+        </>
       )}
 
-      <ChartFaq />
+      <ChartExplainer />
+      <ChartFaq hasChart={!!chart} />
     </>
   );
 }
-
-export {
-  ChartHero,
-  ChartForm,
-  ChartDiagramView,
-  ChartSummaryStrip,
-  ChartPlanetsTable,
-  ChartDashaTimeline,
-  ChartStrengthsElements,
-  ChartKarakasPanchang,
-  ChartTransits,
-  ChartNextSteps,
-  ChartFaq,
-};

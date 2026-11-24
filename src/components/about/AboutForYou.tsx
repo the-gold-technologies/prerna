@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import Link from "../shared/SmartLink";
 import { ArrowRight } from "lucide-react";
 import Reveal from "../home/Reveal";
 import { useBooking } from "../home/BookingProvider";

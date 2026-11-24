@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import Link from "../shared/SmartLink";
 import { ArrowRight } from "lucide-react";
 
 type Tool = { t: string; d: string; href?: string; soon?: boolean };

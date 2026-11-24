@@ -454,3 +454,46 @@ h2 em {
     display: none;
   }
 }
+
+/* ---------- Chart page ---------- */
+/* rings of the live wheel draw themselves in */
+.lw-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.8s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+/* radar-like sweep while the wheel is idle */
+.lw-sweep {
+  transform-origin: 250px 250px;
+  animation: spin 7s linear infinite;
+}
+/* divisional chart diagrams draw in each time they change */
+.chart-draw svg :is(line, path, rect, polygon, polyline) {
+  stroke-dasharray: 2400;
+  stroke-dashoffset: 2400;
+  animation: draw 1.6s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+.chart-draw svg text {
+  animation: rise 0.5s ease 0.8s both;
+}
+/* bars and fills that grow when they scroll into view */
+.grow-x {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.in .grow-x,
+.grow-x.in {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lw-draw,
+  .chart-draw svg *,
+  .lw-sweep {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .grow-x {
+    transition: none;
+  }
+}

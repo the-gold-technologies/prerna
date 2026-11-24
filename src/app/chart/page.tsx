@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <BookingProvider>
-      <Nav />
+      <Nav overDark />
       <main>
         <ChartPage />
       </main>

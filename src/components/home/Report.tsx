@@ -7,6 +7,7 @@ import { ArrowRight, RotateCcw } from "lucide-react";
 import Reveal from "./Reveal";
 import { useBooking } from "./BookingProvider";
 import { BIRTH_CITIES } from "@/lib/chart";
+import PlaceInput from "../shared/PlaceInput";
 
 const field =
   "w-full border-b border-line bg-transparent py-2 text-ink outline-none transition placeholder:text-ink-3 focus:border-gold";
@@ -282,22 +283,14 @@ export default function Report() {
                   onChange={(e) => setForm({ ...form, time: e.target.value })}
                 />
               </label>
-              <label className="sm:col-span-2">
+              <div className="sm:col-span-2">
                 <span className={lbl}>Place of birth</span>
-                <input
+                <PlaceInput
                   className={field}
-                  list="home-birth-cities"
                   value={form.place}
-                  placeholder="Start typing a city"
-                  autoComplete="off"
-                  onChange={(e) => setForm({ ...form, place: e.target.value })}
+                  onChange={(place) => setForm({ ...form, place })}
                 />
-                <datalist id="home-birth-cities">
-                  {BIRTH_CITIES.map((c) => (
-                    <option key={c.name} value={c.name} />
-                  ))}
-                </datalist>
-              </label>
+              </div>
             </div>
             {error && <p className="mt-4 text-sm text-[#7a2a45]">{error}</p>}
             <div className="mt-6 flex flex-wrap items-center gap-3">

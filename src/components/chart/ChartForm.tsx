@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, ChevronDown, RotateCcw, Sparkles } from "lucide-react";
-import { AYANAMSHAS, BIRTH_CITIES, YEAR_OPTIONS } from "@/lib/chart";
+import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react";
+import { AYANAMSHAS, YEAR_OPTIONS } from "@/lib/chart";
+import PlaceInput from "../shared/PlaceInput";
 import { field, lbl, offsetFor, pill, type Form } from "./types";
 
 export function ChartForm({
@@ -12,7 +13,6 @@ export function ChartForm({
   onPlace,
   onSubmit,
   onReset,
-  onLoadExample,
 }: {
   f: Form;
   error: string;
@@ -20,7 +20,7 @@ export function ChartForm({
   onPlace: (place: string) => void;
   onSubmit: () => void;
   onReset: () => void;
-  onLoadExample: () => void;
+  onLoadExample?: () => void;
 }) {
   return (
     <form
@@ -29,9 +29,11 @@ export function ChartForm({
         e.preventDefault();
         onSubmit();
       }}
-      className="rounded-[28px] border border-gold/30 bg-paper p-7 shadow-[0_30px_70px_-45px_rgba(28,24,68,0.45)] sm:p-8 lg:col-span-5 lg:self-start print:hidden"
+      className="scroll-mt-24 rounded-[28px] border border-gold/40 bg-paper p-6 text-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] sm:p-7 print:hidden"
     >
-      <p className="font-display text-3xl text-ink">Birth details</p>
+      <p className="font-display text-2xl text-ink sm:text-3xl">
+        Birth details
+      </p>
       <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-5">
         <label className="col-span-2 sm:col-span-1">
           <span className={lbl}>Name</span>
@@ -110,22 +112,10 @@ export function ChartForm({
             ))}
           </div>
         </div>
-        <label className="col-span-2">
+        <div className="col-span-2">
           <span className={lbl}>Place of birth</span>
-          <input
-            className={field}
-            list="birth-cities"
-            value={f.place}
-            placeholder="Start typing a city"
-            onChange={(e) => onPlace(e.target.value)}
-            autoComplete="off"
-          />
-          <datalist id="birth-cities">
-            {BIRTH_CITIES.map((c) => (
-              <option key={c.name} value={c.name} />
-            ))}
-          </datalist>
-        </label>
+          <PlaceInput className={field} value={f.place} onChange={onPlace} />
+        </div>
       </div>
 
       <details className="group mt-5 rounded-2xl bg-sand/50 px-4 py-3">
@@ -231,7 +221,7 @@ export function ChartForm({
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <button
           type="submit"
-          className="group flex items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
+          className="group flex cursor-pointer items-center gap-2 rounded-full bg-ink px-7 py-4 font-semibold text-paper ring-1 ring-inset ring-gold/45 transition hover:bg-astro"
         >
           Compute chart
           <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -239,16 +229,9 @@ export function ChartForm({
         <button
           type="button"
           onClick={onReset}
-          className="flex items-center gap-2 rounded-full border border-ink/20 px-5 py-4 text-sm font-semibold transition hover:border-ink"
+          className="flex cursor-pointer items-center gap-2 rounded-full border border-ink/20 px-5 py-4 text-sm font-semibold transition hover:border-ink"
         >
           <RotateCcw className="h-4 w-4" /> Reset
-        </button>
-        <button
-          type="button"
-          onClick={onLoadExample}
-          className="flex items-center gap-1.5 text-sm font-semibold text-ink-2 hover:text-ink"
-        >
-          <Sparkles className="h-4 w-4 text-gold" /> Example
         </button>
       </div>
     </form>

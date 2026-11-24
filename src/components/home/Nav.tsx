@@ -23,6 +23,8 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const light = overDark && !scrolled && !open;
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -61,8 +63,8 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
             <Link
               key={l.href}
               href={l.href}
-              aria-current={pathname === l.href ? "page" : undefined}
-              className={`text-sm transition ${light ? "hover:text-paper" : "hover:text-ink"} ${pathname === l.href ? (light ? "font-semibold text-paper" : "font-semibold text-ink") : light ? "text-paper/75" : "text-ink-2"}`}
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={`text-sm transition ${light ? "hover:text-paper" : "hover:text-ink"} ${isActive(l.href) ? (light ? "font-semibold text-paper" : "font-semibold text-ink") : light ? "text-paper/75" : "text-ink-2"}`}
             >
               {l.label}
             </Link>
@@ -94,7 +96,8 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block border-b border-line/60 py-4 font-display text-2xl"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={`block border-b border-line/60 py-4 font-display text-2xl ${isActive(l.href) ? "text-gold-deep" : ""}`}
             >
               {l.label}
             </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import Link from "../shared/SmartLink";
 import { ArrowRight } from "lucide-react";
 import { LogoMark } from "./art";
 import Reveal from "./Reveal";
