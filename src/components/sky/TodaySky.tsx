@@ -7,6 +7,7 @@ import {
   SkyLimbs,
   SkyDayLine,
   SkyNakshatraScale,
+  SkyFestivals,
   SkyGuidance,
 } from "./index";
 
@@ -20,9 +21,17 @@ export default function TodaySky() {
       <SkyLimbs p={p} />
       <SkyDayLine p={p} />
       <SkyNakshatraScale p={p} />
+      <SkyFestivals p={p} />
       <SkyGuidance p={p} />
     </>
   );
 }
 
-export { SkyHero, SkyLimbs, SkyDayLine, SkyNakshatraScale, SkyGuidance };
+export {
+  SkyHero,
+  SkyLimbs,
+  SkyDayLine,
+  SkyNakshatraScale,
+  SkyFestivals,
+  SkyGuidance,
+};
