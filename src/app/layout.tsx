@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import CookieConsent from "@/components/shared/CookieConsent";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
       <body className="min-h-screen bg-paper font-sans text-ink antialiased">
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
