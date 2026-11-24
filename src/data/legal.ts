@@ -7,6 +7,8 @@ export type LegalDoc = {
   slug: "privacy" | "terms" | "cookies" | "refund" | "disclaimer";
   title: string;
   eyebrow: string;
+  image: string;
+  imageAlt: string;
   intro: string;
   sections: { heading: string; body: string[] }[];
 };
@@ -16,6 +18,8 @@ export const LEGAL_UPDATED = "2026-11-23";
 export const LEGAL: Record<LegalDoc["slug"], LegalDoc> = {
   privacy: {
     slug: "privacy",
+    image: "/images/legal-privacy.jpg",
+    imageAlt: "A hand writing in a reflection journal that asks how you feel",
     title: "Privacy policy",
     eyebrow: "Legal",
     intro:
@@ -80,6 +84,8 @@ export const LEGAL: Record<LegalDoc["slug"], LegalDoc> = {
 
   terms: {
     slug: "terms",
+    image: "/images/legal-terms.jpg",
+    imageAlt: "An astronomical clock face showing the twelve zodiac signs",
     title: "Terms & conditions",
     eyebrow: "Legal",
     intro:
@@ -145,6 +151,8 @@ export const LEGAL: Record<LegalDoc["slug"], LegalDoc> = {
 
   cookies: {
     slug: "cookies",
+    image: "/images/legal-cookies.jpg",
+    imageAlt: "The sacred Om symbol on a dark background",
     title: "Cookie policy",
     eyebrow: "Legal",
     intro:
@@ -185,6 +193,8 @@ export const LEGAL: Record<LegalDoc["slug"], LegalDoc> = {
 
   refund: {
     slug: "refund",
+    image: "/images/legal-refund.jpg",
+    imageAlt: "Rows of lit clay diyas glowing in a temple",
     title: "Refund & cancellation policy",
     eyebrow: "Legal",
     intro:
@@ -228,6 +238,9 @@ export const LEGAL: Record<LegalDoc["slug"], LegalDoc> = {
 
   disclaimer: {
     slug: "disclaimer",
+    image: "/images/legal-disclaimer.jpg",
+    imageAlt:
+      "A hand holding a compass, offering direction rather than certainty",
     title: "Disclaimer",
     eyebrow: "Legal",
     intro:

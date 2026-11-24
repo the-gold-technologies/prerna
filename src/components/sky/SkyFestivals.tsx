@@ -1,22 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
+import React, { useMemo, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { timeIn, type Panchang } from "@/lib/sky";
-import {
-  dayTimings,
-  upcomingFestivals,
-  type FestivalDay,
-} from "@/lib/festivals";
+import { upcomingFestivals, type FestivalDay } from "@/lib/festivals";
 
 const PER_PAGE = 6;
 const AHEAD = 18;
-
-const TONE = {
-  keep: { dot: "bg-spirit", label: "Keep" },
-  avoid: { dot: "bg-[#7a2a45]", label: "Avoid" },
-  sun: { dot: "bg-gold", label: "Sun" },
-} as const;
 
 /* Whole local days between two instants in a time zone. */
 function daysBetween(a: Date, b: Date, tz: string) {
@@ -30,12 +20,6 @@ function daysBetween(a: Date, b: Date, tz: string) {
 
 const when = (n: number) =>
   n === 0 ? "Today" : n === 1 ? "Tomorrow" : `In ${n} days`;
-
-function span(ms: number) {
-  const m = Math.max(0, Math.round(ms / 60_000));
-  const h = Math.floor(m / 60);
-  return h ? `${h}h ${m % 60}m` : `${m}m`;
-}
 
 /* A small brass diya with a flickering flame. */
 function Diya({ className = "" }: { className?: string }) {
@@ -78,14 +62,10 @@ function Diya({ className = "" }: { className?: string }) {
   );
 }
 
-/* Festivals and important timings: a paged grid of the days ahead, today's hours below. */
+/* Festivals and important timings: a paged grid of the days ahead. */
 export function SkyFestivals({ p }: { p: Panchang | null }) {
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState<"next" | "prev">("next");
-  const [full, setFull] = useState(false);
-  const [calFilter, setCalFilter] = useState<"all" | "festival" | "vrat">(
-    "all"
-  );
   const touch = useRef<number | null>(null);
 
   const tz = p?.city.tz ?? "Asia/Kolkata";
@@ -116,19 +96,6 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
     setPage(to);
   };
 
-  // close the calendar with Escape and keep the page from scrolling behind it
-  useEffect(() => {
-    if (!full) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setFull(false);
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [full]);
-
   const fmt = (d: Date, o: Intl.DateTimeFormatOptions) =>
     new Intl.DateTimeFormat("en-GB", { ...o, timeZone: tz }).format(d);
   const dateLine = (d: Date) =>
@@ -142,39 +109,8 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
     return `${t.label} ${at}${t.to ? ` – ${timeIn(t.to, tz)}` : ""}`;
   };
 
-  /* ---------- today's hours ---------- */
-  const timings = p ? dayTimings(p.sunrise, p.sunset, tz) : [];
-  const now = p?.date.getTime() ?? 0;
-  const current = timings.find(
-    (t) => t.end > t.start && now >= t.start.getTime() && now < t.end.getTime()
-  );
-  const next = timings.find((t) => t.start.getTime() > now);
-  const clear = (() => {
-    if (!p) return null;
-    const avoid = timings
-      .filter((t) => ["rahu", "yama", "gulika"].includes(t.key))
-      .sort((a, b) => a.start.getTime() - b.start.getTime());
-    let from = p.sunrise.getTime();
-    let best = { start: from, end: from };
-    for (const t of [...avoid, { start: p.sunset, end: p.sunset }]) {
-      const to = t.start.getTime();
-      if (to - from > best.end - best.start) best = { start: from, end: to };
-      from = Math.max(from, t.end.getTime());
-    }
-    return best;
-  })();
-
   const round =
     "grid h-12 w-12 place-items-center rounded-full border border-gold/50 text-ink transition hover:border-ink hover:bg-ink hover:text-paper disabled:pointer-events-none disabled:opacity-35";
-
-  /* calendar grouped by month */
-  const calendar = festivals
-    .filter((f) => calFilter === "all" || f.kind === calFilter)
-    .reduce<Record<string, FestivalDay[]>>((acc, f) => {
-      const k = fmt(f.date, { month: "long", year: "numeric" });
-      (acc[k] ??= []).push(f);
-      return acc;
-    }, {});
 
   return (
     <section className="relative overflow-hidden border-b border-line bg-card py-20 lg:py-24">
@@ -234,7 +170,7 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
               Array.from({ length: PER_PAGE }, (_, i) => (
                 <li
                   key={i}
-                  className="h-[184px] animate-pulse rounded-[22px] bg-sand/60"
+                  className="h-[150px] animate-pulse rounded-[20px] bg-sand/60"
                 />
               ))}
             {cards.map((f, i) => {
@@ -247,42 +183,38 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
                   style={{ animationDelay: `${i * 70}ms` }}
                 >
                   <article
-                    className={`group relative h-full overflow-hidden rounded-[22px] border p-7 transition duration-500 hover:-translate-y-1.5 ${
+                    className={`group relative h-full overflow-hidden rounded-[20px] border p-5 transition duration-500 hover:-translate-y-1 sm:p-6 ${
                       lead
                         ? "border-gold/50 bg-[linear-gradient(135deg,#4f1d44_0%,#2a1236_55%,#1c1844_100%)] text-paper shadow-[0_30px_60px_-30px_rgba(79,29,68,0.75)]"
-                        : "border-gold/40 bg-paper hover:border-gold hover:shadow-[0_30px_60px_-35px_rgba(28,24,68,0.45)]"
+                        : "border-gold/40 bg-paper hover:border-gold hover:shadow-[0_20px_40px_-25px_rgba(28,24,68,0.35)]"
                     }`}
                   >
                     {lead && (
                       <>
-                        <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold-bright/20 blur-3xl" />
-                        <Diya className="absolute right-5 top-4 h-11 w-11" />
+                        <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gold-bright/20 blur-3xl" />
+                        <Diya className="absolute right-4 top-4 h-9 w-9" />
                       </>
                     )}
                     <p
-                      className={`relative text-xs font-semibold uppercase tracking-[0.22em] ${lead ? "text-gold-bright" : "text-[#7a2a45]"}`}
+                      className={`relative text-[11px] font-semibold uppercase tracking-[0.22em] ${lead ? "text-gold-bright" : "text-[#7a2a45]"}`}
                     >
                       {when(n)}
                     </p>
                     <h3
-                      className={`relative mt-2 pr-10 font-display text-[1.7rem] font-medium leading-tight ${lead ? "" : "text-ink"}`}
+                      className={`relative mt-1.5 pr-8 font-display text-xl font-medium leading-snug sm:text-[1.35rem] ${lead ? "" : "text-ink"}`}
                     >
                       {f.name}
                     </h3>
                     <p
-                      className={`relative mt-1.5 ${lead ? "text-paper/75" : "text-ink-2"}`}
+                      className={`relative mt-1 text-sm ${lead ? "text-paper/75" : "text-ink-2"}`}
                     >
                       {dateLine(f.date)}
                     </p>
                     <p
-                      className={`relative mt-5 font-semibold ${lead ? "text-gold-soft" : "text-gold-deep"}`}
+                      className={`relative mt-3.5 text-sm font-semibold ${lead ? "text-gold-soft" : "text-gold-deep"}`}
                     >
                       {timeLine(f)}
                     </p>
-                    {/* gold underline that draws in on hover */}
-                    <span
-                      className={`absolute bottom-0 left-7 right-7 h-[2px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${lead ? "bg-gold-bright" : "bg-gold"}`}
-                    />
                   </article>
                 </li>
               );
@@ -297,7 +229,7 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
               type="button"
               onClick={() => go(safePage - 1)}
               disabled={safePage === 0}
-              className={round}
+              className={`${round} cursor-pointer`}
               aria-label="Previous festivals"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -315,7 +247,7 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
                   aria-selected={i === safePage}
                   aria-label={`Page ${i + 1}`}
                   onClick={() => go(i)}
-                  className={`h-2.5 rounded-full transition-all duration-500 ${i === safePage ? "w-10 bg-gold" : "w-2.5 bg-gold/30 hover:bg-gold/60"}`}
+                  className={`h-2.5 cursor-pointer rounded-full transition-all duration-500 ${i === safePage ? "w-10 bg-gold" : "w-2.5 bg-gold/30 hover:bg-gold/60"}`}
                 />
               ))}
             </div>
@@ -328,224 +260,14 @@ export function SkyFestivals({ p }: { p: Panchang | null }) {
               type="button"
               onClick={() => go(safePage + 1)}
               disabled={safePage >= pages - 1}
-              className={round}
+              className={`${round} cursor-pointer`}
               aria-label="Next festivals"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setFull(true)}
-            className="group flex items-center gap-3 rounded-full border border-gold px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-ink transition hover:bg-ink hover:text-paper"
-          >
-            The full calendar
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </button>
-        </div>
-
-        {/* ---------- today's hours ---------- */}
-        <div className="mt-20 border-t border-line pt-12">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#7a2a45]">
-                Today
-              </p>
-              <h3 className="mt-3 font-display text-3xl font-medium text-ink sm:text-4xl">
-                Hours to keep, hours to let pass
-              </h3>
-            </div>
-            <div className="flex gap-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-3">
-              {(["keep", "avoid", "sun"] as const).map((k) => (
-                <span key={k} className="flex items-center gap-1.5">
-                  <span className={`h-2 w-2 rounded-full ${TONE[k].dot}`} />
-                  {TONE[k].label}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <ol className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
-            {timings.length === 0 &&
-              Array.from({ length: 7 }, (_, i) => (
-                <li
-                  key={i}
-                  className="h-36 animate-pulse rounded-2xl bg-sand/60"
-                />
-              ))}
-            {timings.map((t) => {
-              const instant = t.start.getTime() === t.end.getTime();
-              const past =
-                (instant ? t.start.getTime() : t.end.getTime()) <= now;
-              const isNow = current?.key === t.key;
-              const isNext = next?.key === t.key;
-              return (
-                <li
-                  key={t.key}
-                  className={`flex flex-col rounded-2xl border p-4 transition ${isNow ? "border-ink bg-ink text-paper" : "border-gold/30 bg-paper"} ${past && !isNow ? "opacity-50" : ""}`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      {isNow && (
-                        <span
-                          className={`absolute inline-flex h-full w-full animate-ping rounded-full ${TONE[t.tone].dot}`}
-                        />
-                      )}
-                      <span
-                        className={`relative h-2 w-2 rounded-full ${TONE[t.tone].dot}`}
-                      />
-                    </span>
-                    <span
-                      className={`text-[9px] font-semibold uppercase tracking-[0.2em] ${isNow ? "text-gold-bright" : "text-ink-3"}`}
-                    >
-                      {isNow
-                        ? `Now · ${span(t.end.getTime() - now)} left`
-                        : isNext
-                          ? `In ${span(t.start.getTime() - now)}`
-                          : past
-                            ? "Passed"
-                            : TONE[t.tone].label}
-                    </span>
-                  </span>
-                  <p
-                    className={`mt-3 font-display text-lg leading-tight ${isNow ? "" : "text-ink"}`}
-                  >
-                    {t.name}
-                  </p>
-                  <p
-                    className={`mt-1 text-sm font-semibold ${isNow ? "text-gold-soft" : "text-gold-deep"}`}
-                  >
-                    {timeIn(t.start, tz)}
-                    {!instant && (
-                      <span className="block font-normal opacity-80">
-                        to {timeIn(t.end, tz)}
-                      </span>
-                    )}
-                  </p>
-                  <p
-                    className={`mt-auto pt-3 text-[11px] leading-snug ${isNow ? "text-paper/60" : "text-ink-3"}`}
-                  >
-                    {t.note}
-                  </p>
-                </li>
-              );
-            })}
-          </ol>
-
-          {clear && (
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-spirit-soft/70 px-6 py-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-spirit">
-                Clearest window today
-              </p>
-              <p className="font-display text-2xl text-ink">
-                {timeIn(new Date(clear.start), tz)} –{" "}
-                {timeIn(new Date(clear.end), tz)}
-              </p>
-              <p className="text-sm text-ink-2">
-                {span(clear.end - clear.start)} of daylight free of Rahu Kaal,
-                Yamaganda and Gulika.
-              </p>
-            </div>
-          )}
         </div>
       </div>
-
-      {/* ---------- full calendar ---------- */}
-      {full && (
-        <div
-          className="fixed inset-0 z-[60] flex justify-end bg-ink/50 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label="The full calendar"
-          onClick={() => setFull(false)}
-        >
-          <div
-            className="rise flex h-full w-full max-w-xl flex-col bg-paper shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between gap-4 border-b border-line px-7 py-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#7a2a45]">
-                  The full calendar
-                </p>
-                <p className="mt-2 font-display text-3xl text-ink">
-                  The next six months
-                </p>
-                <p className="mt-1 text-sm text-ink-3">
-                  For {p?.city.name}, in local time.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setFull(false)}
-                className="grid h-10 w-10 place-items-center rounded-full border border-line transition hover:border-ink"
-                aria-label="Close the calendar"
-                autoFocus
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="flex gap-1 border-b border-line px-7 py-3">
-              {(
-                [
-                  ["all", "All"],
-                  ["festival", "Festivals"],
-                  ["vrat", "Vrat days"],
-                ] as const
-              ).map(([k, label]) => (
-                <button
-                  key={k}
-                  type="button"
-                  onClick={() => setCalFilter(k)}
-                  aria-pressed={calFilter === k}
-                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${calFilter === k ? "bg-ink text-paper" : "text-ink-2 hover:bg-sand"}`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <div className="flex-1 overflow-y-auto px-7 py-6">
-              {Object.entries(calendar).map(([month, items]) => (
-                <div key={month} className="mb-8">
-                  <p className="sticky top-0 bg-paper py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-deep">
-                    {month}
-                  </p>
-                  <ol className="divide-y divide-line">
-                    {items.map((f) => (
-                      <li
-                        key={`${f.name}-${f.date.getTime()}`}
-                        className="flex gap-4 py-3.5"
-                      >
-                        <div
-                          className={`w-12 shrink-0 rounded-xl py-1 text-center ${f.kind === "festival" ? "bg-ink text-paper" : "bg-sand text-ink"}`}
-                        >
-                          <p className="font-display text-xl leading-tight">
-                            {fmt(f.date, { day: "numeric" })}
-                          </p>
-                          <p className="text-[9px] uppercase tracking-[0.12em] opacity-70">
-                            {fmt(f.date, { weekday: "short" })}
-                          </p>
-                        </div>
-                        <div className="min-w-0">
-                          <p className="font-display text-lg text-ink">
-                            {f.name}
-                          </p>
-                          <p className="text-sm font-semibold text-gold-deep">
-                            {timeLine(f)}
-                          </p>
-                          <p className="text-xs text-ink-3">
-                            {f.month} · {f.tithi}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
